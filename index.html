@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento de Rhamon & Vitória</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="header-content">
+            <h1>Rhamon & Vitória</h1>
+            <p>Data: 19/04/2025</p>
+            <div class="countdown" id="countdown"></div>
+        </div>
+    </header>
+
+    <!-- Navegação de Abas -->
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'home')">Home</button>
+        <button class="tablinks" onclick="openTab(event, 'confirmacao')">Confirmação de Presença</button>
+        <button class="tablinks" onclick="openTab(event, 'mensagens')">Mensagens</button>
+        <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
+    </div>
+
+    <!-- Seção: Home -->
+    <div id="home" class="tabcontent">
+        <h2>Bem-vindos ao nosso site de casamento!</h2>
+        <p>Estamos muito felizes em compartilhar esse momento especial com vocês. Aqui, você encontrará todas as informações sobre o nosso grande dia, poderá confirmar sua presença, deixar mensagens para nós, e muito mais!</p>
+        <p>Contamos com a presença de todos para celebrarmos juntos!</p>
+    </div>
+
+    <!-- Seção: Confirmação de Presença -->
+    <div id="confirmacao" class="tabcontent">
+        <h2>Confirme sua Presença</h2>
+        <form id="confirmacao-form">
+            <input type="text" id="nome" placeholder="Seu Nome" required>
+            <input type="text" id="pin" placeholder="PIN de Confirmação" required>
+            <label for="adultos">Número de Adultos:</label>
+            <input type="number" id="adultos" value="1" min="1" required>
+            <label for="criancas">Número de Crianças:</label>
+            <input type="number" id="criancas" value="0" min="0" required>
+            <button type="submit">Confirmar Presença</button>
+        </form>
+        <div id="confirmacoes-enviadas">
+            <!-- Aqui aparecerão as confirmações de presença -->
+        </div>
+    </div>
+
+    <!-- Seção: Mensagens para os Noivos -->
+    <div id="mensagens" class="tabcontent">
+        <h2>Deixe uma mensagem para os noivos</h2>
+        <form id="mensagem-form">
+            <input type="text" id="nome-mensagem" placeholder="Seu Nome" required>
+            <textarea id="comentario" placeholder="Escreva sua mensagem..." required></textarea>
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+        <div id="mensagens-enviadas">
+            <!-- Aqui vão aparecer as mensagens enviadas -->
+        </div>
+    </div>
+
+    <!-- Seção: História do Casal -->
+    <div id="historia" class="tabcontent">
+        <h2>Nossa História</h2>
+        <p>Aqui o casal pode escrever uma breve história sobre como se conheceram, momentos especiais e o que esperam do futuro juntos.</p>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script type="module">
+        // Firebase Configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDiC1GOP6lTx545H9fBAW9Pt5jpRtRjLlk",
+            authDomain: "comentario-site-c0956.firebaseapp.com",
+            databaseURL: "https://comentario-site-c0956-default-rtdb.firebaseio.com",
+            projectId: "comentario-site-c0956",
+            storageBucket: "comentario-site-c0956.appspot.com",
+            messagingSenderId: "720900428201",
+            appId: "1:720900428201:web:88e4ed92d814ffd8c4f4b8",
+            measurementId: "G-B64QKB1PGN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Enviar confirmação de presença para o Firebase
+        document.getElementById('confirmacao-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value.trim();
+            const pin = document.getElementById('pin').value.trim();
+            const adultos = document.getElementById('adultos').value;
+            const criancas = document.getElementById('criancas').value;
+
+            if (nome === '' || pin === '') {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const confirmacaoRef = ref(database, 'confirmacoes');
+            push(confirmacaoRef, {
+                nome: nome,
+                pin: pin,
+                adultos: adultos,
+                criancas: criancas
+            });
+
+            document.getElementById('confirmacao-form').reset();
+        });
+
+        // Exibir confirmações enviadas
+        const confirmacaoRef = ref(database, 'confirmacoes');
+        onValue(confirmacaoRef, (snapshot) => {
+            const confirmacoesDiv = document.getElementById('confirmacoes-enviadas');
+            confirmacoesDiv.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                const confirmacao = childSnapshot.val();
+                const confirmacaoElement = document.createElement('p');
+                confirmacaoElement.innerHTML = `<strong>${confirmacao.nome}</strong>: ${confirmacao.adultos} adultos, ${confirmacao.criancas} crianças`;
+                confirmacoesDiv.appendChild(confirmacaoElement);
+            });
+        });
+
+        // Enviar mensagem para o Firebase
+        document.getElementById('mensagem-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nomeMensagem = document.getElementById('nome-mensagem').value.trim();
+            const comentario = document.getElementById('comentario').value.trim();
+
+            if (nomeMensagem === '' || comentario === '') {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const mensagemRef = ref(database, 'mensagens');
+            push(mensagemRef, {
+                nome: nomeMensagem,
+                comentario: comentario
+            });
+
+            document.getElementById('mensagem-form').reset();
+        });
+
+        // Exibir mensagens enviadas
+        const mensagemRef = ref(database, 'mensagens');
+        onValue(mensagemRef, (snapshot) => {
+            const mensagensDiv = document.getElementById('mensagens-enviadas');
+            mensagensDiv.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                const mensagem = childSnapshot.val();
+                const mensagemElement = document.createElement('p');
+                mensagemElement.innerHTML = `<strong>${mensagem.nome}</strong>: ${mensagem.comentario}`;
+                mensagensDiv.appendChild(mensagemElement);
+            });
+        });
+
+    </script>
+  
+</body>
+</html>
