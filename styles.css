@@ -9,11 +9,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f8f5;
     color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
     text-align: center; /* Centralizar textos */
 }
 
@@ -21,7 +16,6 @@ header {
     background-color: #88c999;
     color: white;
     padding: 20px;
-    width: 100%;
 }
 
 h1 {
@@ -77,17 +71,14 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    width: 100%;
 }
 
 /* Estilos de abas */
 .tab {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centraliza as abas horizontalmente */
     background-color: #88c999;
-    flex-wrap: wrap; /* Responsividade para telas menores */
-    width: 100%;
-    padding: 10px;
+    margin-bottom: 20px;
 }
 
 .tab button {
@@ -99,7 +90,7 @@ footer {
     transition: 0.3s;
     font-size: 17px;
     color: white;
-    margin: 5px;
+    margin: 0 10px; /* Espaçamento horizontal entre as abas */
 }
 
 .tab button:hover {
@@ -133,13 +124,12 @@ footer {
     }
 
     .tab {
-        flex-direction: column;
-        align-items: center; /* Centralizar abas verticalmente */
+        flex-wrap: wrap; /* Faz com que as abas quebrem para uma nova linha em telas pequenas */
     }
 
     .tab button {
         width: 100%;
-        margin: 5px 0;
+        margin-bottom: 5px;
     }
 
     .tabcontent, section {
