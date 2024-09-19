@@ -67,13 +67,14 @@ footer {
 
 /* Estilos de abas */
 .tab {
-    overflow: hidden;
+    display: flex; /* Mudar para flexbox */
+    justify-content: center; /* Centraliza as abas */
     background-color: #88c999;
+    flex-wrap: wrap; /* Faz com que as abas se ajustem em telas menores */
 }
 
 .tab button {
     background-color: inherit;
-    float: left;
     border: none;
     outline: none;
     cursor: pointer;
@@ -81,6 +82,7 @@ footer {
     transition: 0.3s;
     font-size: 17px;
     color: white;
+    margin: 5px; /* Adicionar margem para espaçar as abas */
 }
 
 .tab button:hover {
@@ -103,6 +105,7 @@ footer {
     to {opacity: 1;}
 }
 
+/* Responsividade para telas menores */
 @media (max-width: 768px) {
     h1 {
         font-size: 1.8em;
@@ -110,5 +113,14 @@ footer {
 
     .countdown {
         font-size: 1.2em;
+    }
+
+    .tab {
+        flex-direction: column; /* Abas ficam empilhadas verticalmente em telas menores */
+    }
+
+    .tab button {
+        width: 100%; /* Botões das abas ocupam a largura total em telas menores */
+        margin: 5px 0; /* Ajuste de margem para o empilhamento vertical */
     }
 }
