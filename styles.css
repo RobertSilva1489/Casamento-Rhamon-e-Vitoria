@@ -6,16 +6,16 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto Mono', monospace;
     background-color: #f0f8f5;
     color: #333;
-    text-align: center; /* Centralizar textos */
 }
 
 header {
     background-color: #88c999;
     color: white;
     padding: 20px;
+    text-align: center;
 }
 
 h1 {
@@ -29,15 +29,8 @@ h1 {
     margin-top: 10px;
 }
 
-/* Centralizar conteúdo */
 .tabcontent, section {
-    margin: 20px auto;
-    max-width: 600px; /* Largura máxima para manter o layout agradável em telas grandes */
-    text-align: center;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
 h2 {
@@ -59,7 +52,6 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Centralizado e responsivo */
 }
 
 button:hover {
@@ -75,10 +67,10 @@ footer {
 
 /* Estilos de abas */
 .tab {
-    display: flex;
-    justify-content: center; /* Centraliza as abas horizontalmente */
+    overflow: hidden;
     background-color: #88c999;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .tab button {
@@ -90,7 +82,6 @@ footer {
     transition: 0.3s;
     font-size: 17px;
     color: white;
-    margin: 0 10px; /* Espaçamento horizontal entre as abas */
 }
 
 .tab button:hover {
@@ -113,7 +104,6 @@ footer {
     to {opacity: 1;}
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
     h1 {
         font-size: 1.8em;
@@ -121,19 +111,5 @@ footer {
 
     .countdown {
         font-size: 1.2em;
-    }
-
-    .tab {
-        flex-wrap: wrap; /* Faz com que as abas quebrem para uma nova linha em telas pequenas */
-    }
-
-    .tab button {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .tabcontent, section {
-        margin: 10px;
-        padding: 15px;
     }
 }
