@@ -148,18 +148,7 @@
             document.getElementById('confirmacao-form').reset();
         });
 
-        // Exibir confirmações enviadas
-        const confirmacaoRef = ref(database, 'confirmacoes');
-        onValue(confirmacaoRef, (snapshot) => {
-            const confirmacoesDiv = document.getElementById('confirmacoes-enviadas');
-            confirmacoesDiv.innerHTML = '';
-            snapshot.forEach((childSnapshot) => {
-                const confirmacao = childSnapshot.val();
-                const confirmacaoElement = document.createElement('p');
-                confirmacaoElement.innerHTML = `<strong>${confirmacao.nome}</strong>: ${confirmacao.adultos} adultos, ${confirmacao.criancas} crianças`;
-                confirmacoesDiv.appendChild(confirmacaoElement);
-            });
-        });
+        
 
         // Enviar mensagem para o Firebase
         document.getElementById('mensagem-form').addEventListener('submit', function(e) {
@@ -181,18 +170,6 @@
             document.getElementById('mensagem-form').reset();
         });
 
-        // Exibir mensagens enviadas
-        const mensagemRef = ref(database, 'mensagens');
-        onValue(mensagemRef, (snapshot) => {
-            const mensagensDiv = document.getElementById('mensagens-enviadas');
-            mensagensDiv.innerHTML = '';
-            snapshot.forEach((childSnapshot) => {
-                const mensagem = childSnapshot.val();
-                const mensagemElement = document.createElement('p');
-                mensagemElement.innerHTML = `<strong>${mensagem.nome}</strong>: ${mensagem.comentario}`;
-                mensagensDiv.appendChild(mensagemElement);
-            });
-        });
 
        // Enviar escolha de presente para o Firebase
 document.getElementById('presentes-form').addEventListener('submit', function(e) {
