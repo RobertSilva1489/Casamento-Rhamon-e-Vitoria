@@ -26,13 +26,13 @@ header {
 
 h1 {
     font-size: 2.5em;
-    margin-bottom: 250px;
+    margin-bottom: 10px;
 }
 
 .countdown {
     font-size: 1.5em;
     font-weight: bold;
-    margin-top: 100px;
+    margin-top: 10px;
 }
 
 /* Centralizar conteúdo */
