@@ -12,10 +12,15 @@ body {
     text-align: center; /* Centralizar textos */
 }
 
+/* Cabeçalho com imagem de fundo */
 header {
-    background-color: #88c999;
+    background-image: url('caminho-da-imagem/header-background.jpg'); /* Insira o caminho correto da imagem */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     padding: 20px;
+    text-align: center;
 }
 
 h1 {
