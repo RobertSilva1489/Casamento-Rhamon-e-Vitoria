@@ -43,6 +43,18 @@ h1 {
     margin-top: 10px;
 }
 
+.image-container {
+    text-align: center; /* Centraliza a imagem */
+    margin-top: 20px;
+}
+
+.responsive-img {
+    max-width: 100%; /* A imagem não vai ultrapassar a largura do container */
+    height: auto;    /* A altura vai ajustar proporcionalmente */
+    border-radius: 10px; /* Opcional: adiciona bordas arredondadas à imagem */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: adiciona uma sombra à imagem */
+}
+
 
 /* Centralizar conteúdo */
 .tabcontent, section {
