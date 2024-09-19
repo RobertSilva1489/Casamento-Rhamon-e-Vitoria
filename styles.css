@@ -12,16 +12,24 @@ body {
     text-align: center; /* Centralizar textos */
 }
 
-/* Cabeçalho com imagem de fundo */
 header {
-    background-image: url('IMG-20220621-WA0047.jpeg'); /* Insira o caminho correto da imagem */
+    background-image: url('IMG-20220621-WA0047.jpeg'); /* Substitua pelo caminho correto da imagem */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
     padding: 20px;
     text-align: center;
-    height: 400px;
+    height: 400px; /* Ajuste a altura conforme necessário */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-content {
+    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para destacar o texto */
+    padding: 20px;
+    border-radius: 10px;
 }
 
 h1 {
@@ -34,6 +42,7 @@ h1 {
     font-weight: bold;
     margin-top: 10px;
 }
+
 
 /* Centralizar conteúdo */
 .tabcontent, section {
