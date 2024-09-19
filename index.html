@@ -192,36 +192,53 @@
             });
         });
 
-        // Enviar escolha de presente para o Firebase
-        document.getElementById('presentes-form').addEventListener('submit', function(e) {
-        e.preventDefault();
+       // Enviar escolha de presente para o Firebase
+document.getElementById('presentes-form').addEventListener('submit', function(e) {
+    e.preventDefault();
     
-         const nomeConvidado = document.getElementById('nome-convidado').value.trim();
-        const presenteEscolhido = document.getElementById('presente-lista').value;
+    const nomeConvidado = document.getElementById('nome-convidado').value.trim();
+    const presenteEscolhido = document.getElementById('presente-lista').value;
 
-        if (nomeConvidado === '' || presenteEscolhido === '') {
+    if (nomeConvidado === '' || presenteEscolhido === '') {
         alert("Por favor, preencha todos os campos.");
         return;
-        }
+    }
 
-        // Estrutura os dados a serem enviados
-         const dadosPresente = {
-            nome: nomeConvidado,
-            presente: presenteEscolhido
-        };
+    // Estrutura os dados a serem enviados
+    const dadosPresente = {
+        nome: nomeConvidado,
+        presente: presenteEscolhido
+    };
 
-        // Envia os dados para o Firebase
-        const presenteRef = ref(database, 'presentes/' + nomeConvidado.replace(/\s+/g, '_')); // Usa o nome do convidado como chave
-     set(presenteRef, dadosPresente)
-            .then(() => {
-              alert('Presente escolhido com sucesso!');
-             document.getElementById('presentes-form').reset();
-             carregarPresentesEscolhidos(); // Atualiza a lista de presentes escolhidos para o admin
-           })
-             .catch((error) => {
-                console.error("Erro ao escolher presente: ", error);
-         });
+    // Envia os dados para o Firebase
+    const presenteRef = ref(database, 'presentes/' + nomeConvidado.replace(/\s+/g, '_')); // Usa o nome do convidado como chave
+    set(presenteRef, dadosPresente)
+        .then(() => {
+            alert('Presente escolhido com sucesso!');
+            document.getElementById('presentes-form').reset();
+            // Remover o presente da lista
+            removerPresenteDaLista(presenteEscolhido);
+            carregarPresentesEscolhidos(); // Atualiza a lista de presentes escolhidos para o admin
+        })
+        .catch((error) => {
+            console.error("Erro ao escolher presente: ", error);
+        });
 });
+
+// Função para remover o presente da lista de opções
+function removerPresenteDaLista(presenteEscolhido) {
+    const presenteLista = document.getElementById('presente-lista');
+    const optionToRemove = Array.from(presenteLista.options).find(option => option.value === presenteEscolhido);
+    if (optionToRemove) {
+        presenteLista.remove(optionToRemove.index);
+    }
+}
+
+// Carrega os presentes escolhidos ao iniciar a página
+window.onload = function() {
+    carregarPresentesEscolhidos(); // Carregar presentes escolhidos para admin
+};
+
 
 // Função para exibir os presentes escolhidos na administração
 function carregarPresentesEscolhidos() {
