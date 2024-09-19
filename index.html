@@ -15,11 +15,14 @@
             <div class="countdown" id="countdown"></div>
         </div>
     </header>
-
     <!-- Navegação de Abas -->
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'home')">Home</button>
         <button class="tablinks" onclick="openTab(event, 'confirmacao')">Confirmação de Presença</button>
+        <!-- Adicionar aba de Lista de Presentes -->
+        <button class="tablinks" onclick="openTab(event, 'presentes')">Lista de Presentes</button>
+        <!-- Adicionar aba de Administração, visível apenas após login -->
+        <button class="tablinks" id="admin-tab" onclick="openTab(event, 'admin')" style="display:none;">Administração</button>
         <button class="tablinks" onclick="openTab(event, 'mensagens')">Mensagens</button>
         <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
     </div>
@@ -60,12 +63,43 @@
             <!-- Aqui vão aparecer as mensagens enviadas -->
         </div>
     </div>
+<!-- Seção: Lista de Presentes -->
+<div id="presentes" class="tabcontent">
+    <h2>Escolha seu Presente</h2>
+    <form id="presentes-form">
+        <input type="text" id="nome-convidado" placeholder="Seu Nome" required>
+        <label for="presente">Escolha um presente:</label>
+        <select id="presente-lista" required>
+            <option value="" disabled selected>Selecione um presente</option>
+            <option value="Liquidificador">Liquidificador</option>
+            <option value="Jogo de Toalhas">Jogo de Toalhas</option>
+            <option value="Ferro de Passar">Ferro de Passar</option>
+            <option value="Aparelho de Jantar">Aparelho de Jantar</option>
+            <option value="Panela de Pressão">Panela de Pressão</option>
+        </select>
+        <button type="submit">Escolher Presente</button>
+    </form>
+    <div id="presentes-selecionados"></div>
+</div>
+
+
+<!-- Seção: Administração (Somente admin) -->
+<div id="admin" class="tabcontent">
+    <h2>Administração</h2>
+    <h3>Confirmados (Presenças)</h3>
+    <div id="admin-presencas"></div>
+    <h3>Lista de Presentes Escolhidos</h3>
+    <div id="admin-presentes"></div>
+</div>
+
+
 
     <!-- Seção: História do Casal -->
     <div id="historia" class="tabcontent">
         <h2>Nossa História</h2>
         <p>Aqui o casal pode escrever uma breve história sobre como se conheceram, momentos especiais e o que esperam do futuro juntos.</p>
     </div>
+
 
     <script src="scripts.js"></script>
     <script type="module">
@@ -157,6 +191,58 @@
                 mensagensDiv.appendChild(mensagemElement);
             });
         });
+
+        // Enviar escolha de presente para o Firebase
+        document.getElementById('presentes-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+    
+         const nomeConvidado = document.getElementById('nome-convidado').value.trim();
+        const presenteEscolhido = document.getElementById('presente-lista').value;
+
+        if (nomeConvidado === '' || presenteEscolhido === '') {
+        alert("Por favor, preencha todos os campos.");
+        return;
+        }
+
+        // Estrutura os dados a serem enviados
+         const dadosPresente = {
+            nome: nomeConvidado,
+            presente: presenteEscolhido
+        };
+
+        // Envia os dados para o Firebase
+        const presenteRef = ref(database, 'presentes/' + nomeConvidado.replace(/\s+/g, '_')); // Usa o nome do convidado como chave
+     set(presenteRef, dadosPresente)
+            .then(() => {
+              alert('Presente escolhido com sucesso!');
+             document.getElementById('presentes-form').reset();
+             carregarPresentesEscolhidos(); // Atualiza a lista de presentes escolhidos para o admin
+           })
+             .catch((error) => {
+                console.error("Erro ao escolher presente: ", error);
+         });
+});
+
+// Função para exibir os presentes escolhidos na administração
+function carregarPresentesEscolhidos() {
+    const presentesEscolhidosRef = ref(database, 'presentes/');
+    onValue(presentesEscolhidosRef, (snapshot) => {
+        const adminPresentesDiv = document.getElementById('admin-presentes');
+        adminPresentesDiv.innerHTML = '';  // Limpa os presentes escolhidos antes de atualizar
+        snapshot.forEach((childSnapshot) => {
+            const presente = childSnapshot.val();
+            const presenteElement = document.createElement('p');
+            presenteElement.innerHTML = `<strong>${presente.nome}</strong> escolheu <em>${presente.presente}</em>`;
+            adminPresentesDiv.appendChild(presenteElement);
+        });
+    });
+}
+
+// Carrega os presentes escolhidos ao iniciar a página
+window.onload = function() {
+    carregarPresentesEscolhidos(); // Carregar presentes escolhidos para admin
+};
+
 
     </script>
   
