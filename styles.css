@@ -9,13 +9,19 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f8f5;
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center; /* Centralizar textos */
 }
 
 header {
     background-color: #88c999;
     color: white;
     padding: 20px;
-    text-align: center;
+    width: 100%;
 }
 
 h1 {
@@ -29,8 +35,15 @@ h1 {
     margin-top: 10px;
 }
 
+/* Centralizar conteúdo */
 .tabcontent, section {
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 600px; /* Largura máxima para manter o layout agradável em telas grandes */
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -52,6 +65,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%; /* Centralizado e responsivo */
 }
 
 button:hover {
@@ -63,14 +77,17 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+    width: 100%;
 }
 
 /* Estilos de abas */
 .tab {
-    display: flex; /* Mudar para flexbox */
-    justify-content: center; /* Centraliza as abas */
+    display: flex;
+    justify-content: center;
     background-color: #88c999;
-    flex-wrap: wrap; /* Faz com que as abas se ajustem em telas menores */
+    flex-wrap: wrap; /* Responsividade para telas menores */
+    width: 100%;
+    padding: 10px;
 }
 
 .tab button {
@@ -82,7 +99,7 @@ footer {
     transition: 0.3s;
     font-size: 17px;
     color: white;
-    margin: 5px; /* Adicionar margem para espaçar as abas */
+    margin: 5px;
 }
 
 .tab button:hover {
@@ -116,11 +133,17 @@ footer {
     }
 
     .tab {
-        flex-direction: column; /* Abas ficam empilhadas verticalmente em telas menores */
+        flex-direction: column;
+        align-items: center; /* Centralizar abas verticalmente */
     }
 
     .tab button {
-        width: 100%; /* Botões das abas ocupam a largura total em telas menores */
-        margin: 5px 0; /* Ajuste de margem para o empilhamento vertical */
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .tabcontent, section {
+        margin: 10px;
+        padding: 15px;
     }
 }
