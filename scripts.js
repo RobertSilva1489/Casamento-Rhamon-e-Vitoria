@@ -54,6 +54,8 @@ function login() {
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('admin-content').style.display = 'block';
             carregarConfirmacoes();
+            carregarPresentes();
+            alert(`login`);
         })
         .catch((error) => {
             const errorCode = error.code;
