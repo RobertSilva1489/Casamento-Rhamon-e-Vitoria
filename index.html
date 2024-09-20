@@ -110,8 +110,6 @@
     <div id="admin-presentes"></div>
 </div>
 
-
-
     <!-- Seção: História do Casal -->
     <div id="historia" class="tabcontent">
         <h2>Nossa História</h2>
@@ -228,39 +226,11 @@ function removerPresenteDaLista(presenteEscolhido) {
         presenteLista.remove(optionToRemove.index);
     }
 }
-
-// Carrega os presentes escolhidos ao iniciar a página
-window.onload = function() {
-    carregarPresentesEscolhidos(); // Carregar presentes escolhidos para admin
-};
-
-
-// Função para exibir os presentes escolhidos na administração
-function carregarPresentesEscolhidos() {
-    const presentesEscolhidosRef = ref(database, 'presentes/');
-    onValue(presentesEscolhidosRef, (snapshot) => {
-        const adminPresentesDiv = document.getElementById('admin-presentes');
-        adminPresentesDiv.innerHTML = '';  // Limpa os presentes escolhidos antes de atualizar
-        snapshot.forEach((childSnapshot) => {
-            const presente = childSnapshot.val();
-            const presenteElement = document.createElement('p');
-            presenteElement.innerHTML = `<strong>${presente.nome}</strong> escolheu <em>${presente.presente}</em>`;
-            adminPresentesDiv.appendChild(presenteElement);
-        });
-    });
-}
-
-// Carrega os presentes escolhidos ao iniciar a página
-window.onload = function() {
-    carregarPresentesEscolhidos(); // Carregar presentes escolhidos para admin
-};
-
-
     </script>
 
-    <script>
+<script>
     // Defina a sequência de teclas que deve ser digitada (exemplo: "admin123")
-    const secretCode = "1904";
+    const secretCode = "190425";
     let inputSequence = "";
 
     // Função para verificar a sequência de teclas digitada
@@ -278,19 +248,46 @@ window.onload = function() {
             // Exibe a aba de administração
             document.getElementById("admin").style.display = "block";
 
-            // Marcar a aba de admin como ativa
-            const adminTab = document.getElementById("admin-tab");
-            if (adminTab) {
-                adminTab.style.display = "inline-block"; // Mostra a aba
-                adminTab.classList.add("active"); // Define como ativa
-            }
+            // Carregar os dados do Firebase para a aba de administração
+            carregarDadosAdmin();
 
             // Reseta a sequência de entrada
             inputSequence = "";
         }
     });
+
+    // Função para carregar os dados de confirmações e presentes do Firebase
+    function carregarDadosAdmin() {
+        // Referências do Firebase para confirmação de presença e lista de presentes
+        const confirmacaoRef = ref(database, 'confirmacoes');
+        const presentesRef = ref(database, 'presentes');
+
+        // Carregar dados de confirmações de presença
+        onValue(confirmacaoRef, (snapshot) => {
+            const adminPresencasDiv = document.getElementById('admin-presencas');
+            adminPresencasDiv.innerHTML = ''; // Limpa antes de adicionar os novos dados
+            snapshot.forEach((childSnapshot) => {
+                const confirmacao = childSnapshot.val();
+                const confirmacaoElement = document.createElement('p');
+                confirmacaoElement.innerHTML = `<strong>${confirmacao.nome}</strong>: ${confirmacao.adultos} adultos, ${confirmacao.criancas} crianças`;
+                adminPresencasDiv.appendChild(confirmacaoElement);
+            });
+        });
+
+        // Carregar dados de presentes escolhidos
+        onValue(presentesRef, (snapshot) => {
+            const adminPresentesDiv = document.getElementById('admin-presentes');
+            adminPresentesDiv.innerHTML = ''; // Limpa antes de adicionar os novos dados
+            snapshot.forEach((childSnapshot) => {
+                const presente = childSnapshot.val();
+                const presenteElement = document.createElement('p');
+                presenteElement.innerHTML = `<strong>${presente.nome}</strong> escolheu o presente: ${presente.presente}`;
+                adminPresentesDiv.appendChild(presenteElement);
+            });
+        });
+    }
 </script>
 
-  
+
 </body>
 </html>
