@@ -101,6 +101,14 @@
     <div id="presentes-selecionados"></div>
 </div>
 
+    <!-- Formulário de Login -->
+<div id="login-section">
+    <h2>Login</h2>
+    <input type="email" id="login-email" placeholder="Email" required>
+    <input type="password" id="login-password" placeholder="Senha" required>
+    <button onclick="login()">Entrar</button>
+    <button onclick="logout()">Sair</button>
+</div>
 
 <!-- Seção: Administração (Somente admin) -->
 <div id="admin" class="tabcontent">
@@ -139,6 +147,7 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
         const database = getDatabase(app);
 
         // Enviar confirmação de presença para o Firebase
