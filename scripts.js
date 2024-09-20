@@ -1,21 +1,3 @@
-// Contagem regressiva até a data do casamento
-const casamentoData = new Date("2025-04-19T00:00:00").getTime();
-
-const countdown = setInterval(() => {
-    const agora = new Date().getTime();
-    const distancia = casamentoData - agora;
-
-    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-    
-    document.getElementById('countdown').innerText = `${dias} dias restantes`;
-
-    if (distancia < 0) {
-        clearInterval(countdown);
-        document.getElementById('countdown').innerText = "O grande dia chegou!";
-    }
-}, 1000);
-
-
 
 // Função para abrir as abas
 function openTab(evt, tabName) {
