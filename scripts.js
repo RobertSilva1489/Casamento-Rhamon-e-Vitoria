@@ -125,7 +125,7 @@ function carregarPresentes() {
 // Função para cadastrar um novo usuário (não precisa estar no código final do site)
 function register() {
     const email = "rhamonsouza2249@gmail.com";
-    const password = "robertsilva7";
+    const password = "1234";
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
