@@ -22,26 +22,21 @@
         <button class="tablinks" onclick="openTab(event, 'home')">Home</button>
         <button class="tablinks" onclick="openTab(event, 'confirmacao')">Confirmação de Presença</button>
         <button class="tablinks" onclick="openTab(event, 'informacoes')">Informações</button>
-        <!-- Adicionar aba de Lista de Presentes -->
         <button class="tablinks" onclick="openTab(event, 'presentes')">Lista de Presentes</button>
-        <!-- Adicionar aba de Administração, visível apenas após login -->
         <button class="tablinks" id="admin-tab" onclick="openTab(event, 'admin')" style="display:none;">Administração</button>
         <button class="tablinks" onclick="openTab(event, 'mensagens')">Mensagens</button>
         <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
     </div>
 
-<!-- Seção: Home -->
-<div id="home" class="tabcontent">
-    <h2>Bem-vindos ao nosso site de casamento!</h2>
-    <p>Estamos muito felizes em compartilhar esse momento especial com vocês. Aqui, você encontrará todas as informações sobre o nosso grande dia, poderá confirmar sua presença, deixar mensagens para nós, e muito mais!</p>
-    <p>Contamos com a presença de todos para celebrarmos juntos!</p>
-
-    <!-- Imagem Responsiva -->
-    <div class="image-container">
-        <img src="IMG-20220621-WA0047.jpeg" alt="Foto do casal" class="responsive-img">
+    <!-- Seção: Home -->
+    <div id="home" class="tabcontent">
+        <h2>Bem-vindos ao nosso site de casamento!</h2>
+        <p>Estamos muito felizes em compartilhar esse momento especial com vocês. Aqui, você encontrará todas as informações sobre o nosso grande dia, poderá confirmar sua presença, deixar mensagens para nós, e muito mais!</p>
+        <p>Contamos com a presença de todos para celebrarmos juntos!</p>
+        <div class="image-container">
+            <img src="IMG-20220621-WA0047.jpeg" alt="Foto do casal" class="responsive-img">
+        </div>
     </div>
-</div>
-
 
     <!-- Seção: Confirmação de Presença -->
     <div id="confirmacao" class="tabcontent">
@@ -55,17 +50,16 @@
             <input type="number" id="criancas" value="0" min="0" required>
             <button type="submit">Confirmar Presença</button>
         </form>
-        <div id="confirmacoes-enviadas">
-            <!-- Aqui aparecerão as confirmações de presença -->
-        </div>
+        <div id="confirmacao-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
+        <div id="confirmacoes-enviadas"></div>
     </div>
+
     <!-- Seção: Informações do Casamento -->
     <div id="informacoes" class="tabcontent">
         <h2>Detalhes do Casamento</h2>
         <p><strong>Data:</strong> 19/04/2025</p>
         <p><strong>Horário:</strong> 17:00</p>
         <p><strong>Local:</strong> A DEFINIR</p>
-        <!-- Localização usando Google Maps -->
         <div id="mapa" style="width:100%;height:300px;"></div>
         <p><strong>Endereço:</strong> A DEFINIR</p>
     </div>
@@ -78,37 +72,38 @@
             <textarea id="comentario" placeholder="Escreva sua mensagem..." required></textarea>
             <button type="submit">Enviar Mensagem</button>
         </form>
-        <div id="mensagens-enviadas">
-            <!-- Aqui vão aparecer as mensagens enviadas -->
-        </div>
+        <div id="mensagem-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
+        <div id="mensagens-enviadas"></div>
     </div>
-<!-- Seção: Lista de Presentes -->
-<div id="presentes" class="tabcontent">
-    <h2>Escolha seu Presente</h2>
-    <form id="presentes-form">
-        <input type="text" id="nome-convidado" placeholder="Seu Nome" required>
-        <label for="presente">Escolha um presente:</label>
-        <select id="presente-lista" required>
-            <option value="" disabled selected>Selecione um presente</option>
-            <option value="Liquidificador">Liquidificador</option>
-            <option value="Jogo de Toalhas">Jogo de Toalhas</option>
-            <option value="Ferro de Passar">Ferro de Passar</option>
-            <option value="Aparelho de Jantar">Aparelho de Jantar</option>
-            <option value="Panela de Pressão">Panela de Pressão</option>
-        </select>
-        <button type="submit">Escolher Presente</button>
-    </form>
-    <div id="presentes-selecionados"></div>
-</div>
 
-<!-- Seção: Administração (Somente admin) -->
-<div id="admin" class="tabcontent" style="display: none;">
-    <h2>Administração</h2>
-    <h3>Confirmados (Presenças)</h3>
-    <div id="admin-presencas"></div>
-    <h3>Lista de Presentes Escolhidos</h3>
-    <div id="admin-presentes"></div>
-</div>
+    <!-- Seção: Lista de Presentes -->
+    <div id="presentes" class="tabcontent">
+        <h2>Escolha seu Presente</h2>
+        <form id="presentes-form">
+            <input type="text" id="nome-convidado" placeholder="Seu Nome" required>
+            <label for="presente">Escolha um presente:</label>
+            <select id="presente-lista" required>
+                <option value="" disabled selected>Selecione um presente</option>
+                <option value="Liquidificador">Liquidificador</option>
+                <option value="Jogo de Toalhas">Jogo de Toalhas</option>
+                <option value="Ferro de Passar">Ferro de Passar</option>
+                <option value="Aparelho de Jantar">Aparelho de Jantar</option>
+                <option value="Panela de Pressão">Panela de Pressão</option>
+            </select>
+            <button type="submit">Escolher Presente</button>
+        </form>
+        <div id="presente-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
+        <div id="presentes-selecionados"></div>
+    </div>
+
+    <!-- Seção: Administração (Somente admin) -->
+    <div id="admin" class="tabcontent" style="display: none;">
+        <h2>Administração</h2>
+        <h3>Confirmados (Presenças)</h3>
+        <div id="admin-presencas"></div>
+        <h3>Lista de Presentes Escolhidos</h3>
+        <div id="admin-presentes"></div>
+    </div>
 
     <!-- Seção: História do Casal -->
     <div id="historia" class="tabcontent">
@@ -116,16 +111,14 @@
         <p>Aqui o casal pode escrever uma breve história sobre como se conheceram, momentos especiais e o que esperam do futuro juntos.</p>
     </div>
 
-
     <script src="scripts.js"></script>
     <script type="module">
-        // Firebase Configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
         import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDiC1GOP6lTx545H9fBAW9Pt5jpRtRjLlk",
+            apiKey: "API_KEY",
             authDomain: "comentario-site-c0956.firebaseapp.com",
             databaseURL: "https://comentario-site-c0956-default-rtdb.firebaseio.com",
             projectId: "comentario-site-c0956",
@@ -138,7 +131,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Enviar confirmação de presença para o Firebase
+        // Enviar confirmação de presença
         document.getElementById('confirmacao-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const nome = document.getElementById('nome').value.trim();
@@ -157,14 +150,14 @@
                 pin: pin,
                 adultos: adultos,
                 criancas: criancas
+            }).then(() => {
+                document.getElementById('confirmacao-sucesso').innerHTML = "<p>Confirmação enviada com sucesso!</p>";
             });
 
             document.getElementById('confirmacao-form').reset();
         });
 
-        
-
-        // Enviar mensagem para o Firebase
+        // Enviar mensagem
         document.getElementById('mensagem-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const nomeMensagem = document.getElementById('nome-mensagem').value.trim();
@@ -175,119 +168,119 @@
                 return;
             }
 
-            const mensagemRef = ref(database, 'mensagens');
-            push(mensagemRef, {
+            const mensagensRef = ref(database, 'mensagens');
+            push(mensagensRef, {
                 nome: nomeMensagem,
                 comentario: comentario
+            }).then(() => {
+                document.getElementById('mensagem-sucesso').innerHTML = "<p>Mensagem enviada com sucesso!</p>";
             });
 
             document.getElementById('mensagem-form').reset();
         });
 
+        // Escolher presente
+        document.getElementById('presentes-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nomeConvidado = document.getElementById('nome-convidado').value.trim();
+            const presenteSelecionado = document.getElementById('presente-lista').value;
 
-       // Enviar escolha de presente para o Firebase
-document.getElementById('presentes-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const nomeConvidado = document.getElementById('nome-convidado').value.trim();
-    const presenteEscolhido = document.getElementById('presente-lista').value;
+            if (nomeConvidado === '' || presenteSelecionado === '') {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
 
-    if (nomeConvidado === '' || presenteEscolhido === '') {
-        alert("Por favor, preencha todos os campos.");
-        return;
-    }
+            const presentesRef = ref(database, 'presentes');
+            push(presentesRef, {
+                nome: nomeConvidado,
+                presente: presenteSelecionado
+            }).then(() => {
+                document.getElementById('presente-sucesso').innerHTML = "<p>Presente escolhido com sucesso!</p>";
+            });
 
-    // Estrutura os dados a serem enviados
-    const dadosPresente = {
-        nome: nomeConvidado,
-        presente: presenteEscolhido
-    };
-
-    // Envia os dados para o Firebase
-    const presenteRef = ref(database, 'presentes/' + nomeConvidado.replace(/\s+/g, '_')); // Usa o nome do convidado como chave
-    set(presenteRef, dadosPresente)
-        .then(() => {
-            alert('Presente escolhido com sucesso!');
             document.getElementById('presentes-form').reset();
-            // Remover o presente da lista
-            removerPresenteDaLista(presenteEscolhido);
-            carregarPresentesEscolhidos(); // Atualiza a lista de presentes escolhidos para o admin
-        })
-        .catch((error) => {
-            console.error("Erro ao escolher presente: ", error);
         });
-});
 
-// Função para remover o presente da lista de opções
-function removerPresenteDaLista(presenteEscolhido) {
-    const presenteLista = document.getElementById('presente-lista');
-    const optionToRemove = Array.from(presenteLista.options).find(option => option.value === presenteEscolhido);
-    if (optionToRemove) {
-        presenteLista.remove(optionToRemove.index);
-    }
-}
+        // Carregar confirmações e presentes na aba de administração
+        function carregarConfirmacoes() {
+            const confirmacoesRef = ref(database, 'confirmacoes');
+            onValue(confirmacoesRef, (snapshot) => {
+                const confirmacoesDiv = document.getElementById('admin-presencas');
+                confirmacoesDiv.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const confirmacao = childSnapshot.val();
+                    const div = document.createElement('div');
+                    div.innerHTML = `<p>Nome: ${confirmacao.nome}, Adultos: ${confirmacao.adultos}, Crianças: ${confirmacao.criancas}</p>`;
+                    confirmacoesDiv.appendChild(div);
+                });
+            });
+        }
+
+        function carregarPresentes() {
+            const presentesRef = ref(database, 'presentes');
+            onValue(presentesRef, (snapshot) => {
+                const presentesDiv = document.getElementById('admin-presentes');
+                presentesDiv.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const presente = childSnapshot.val();
+                    const div = document.createElement('div');
+                    div.innerHTML = `<p>Nome: ${presente.nome}, Presente: ${presente.presente}</p>`;
+                    presentesDiv.appendChild(div);
+                });
+            });
+        }
+
+        // Mostrar a aba de administração se o PIN for correto
+        const adminPIN = "1234"; // Defina o PIN de administrador
+        document.getElementById('pin').addEventListener('input', function() {
+            const pin = document.getElementById('pin').value.trim();
+            if (pin === adminPIN) {
+                document.getElementById('admin-tab').style.display = "block";
+                carregarConfirmacoes();
+                carregarPresentes();
+            }
+        });
+
+        // Função para abrir as abas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Contagem regressiva
+        function countdown() {
+            const countDownDate = new Date("April 19, 2025 17:00:00").getTime();
+            const countdownElement = document.getElementById("countdown");
+
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerHTML = days + "d " + hours + "h " +
+                    minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    countdownElement.innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        countdown();
     </script>
-
-<script>
-    // Defina a sequência de teclas que deve ser digitada (exemplo: "admin123")
-    const secretCode = "1904";
-    let inputSequence = "";
-
-    // Função para verificar a sequência de teclas digitada
-    document.addEventListener('keydown', function(event) {
-        // Adicione a tecla pressionada à sequência atual
-        inputSequence += event.key.toLowerCase();
-
-        // Se a sequência atual for maior que a sequência secreta, remova o excesso
-        if (inputSequence.length > secretCode.length) {
-            inputSequence = inputSequence.substring(inputSequence.length - secretCode.length);
-        }
-
-        // Verifica se a sequência digitada corresponde ao código secreto
-        if (inputSequence === secretCode) {
-            // Exibe a aba de administração
-            document.getElementById("admin").style.display = "block";
-
-            // Carregar os dados do Firebase para a aba de administração
-            carregarDadosAdmin();
-
-            // Reseta a sequência de entrada
-            inputSequence = "";
-        }
-    });
-
-    // Função para carregar os dados de confirmações e presentes do Firebase
-    function carregarDadosAdmin() {
-        // Referências do Firebase para confirmação de presença e lista de presentes
-        const confirmacaoRef = ref(database, 'confirmacoes');
-        const presentesRef = ref(database, 'presentes');
-
-        // Carregar dados de confirmações de presença
-        onValue(confirmacaoRef, (snapshot) => {
-            const adminPresencasDiv = document.getElementById('admin-presencas');
-            adminPresencasDiv.innerHTML = ''; // Limpa antes de adicionar os novos dados
-            snapshot.forEach((childSnapshot) => {
-                const confirmacao = childSnapshot.val();
-                const confirmacaoElement = document.createElement('p');
-                confirmacaoElement.innerHTML = `<strong>${confirmacao.nome}</strong>: ${confirmacao.adultos} adultos, ${confirmacao.criancas} crianças`;
-                adminPresencasDiv.appendChild(confirmacaoElement);
-            });
-        });
-
-        // Carregar dados de presentes escolhidos
-        onValue(presentesRef, (snapshot) => {
-            const adminPresentesDiv = document.getElementById('admin-presentes');
-            adminPresentesDiv.innerHTML = ''; // Limpa antes de adicionar os novos dados
-            snapshot.forEach((childSnapshot) => {
-                const presente = childSnapshot.val();
-                const presenteElement = document.createElement('p');
-                presenteElement.innerHTML = `<strong>${presente.nome}</strong> escolheu o presente: ${presente.presente}`;
-                adminPresentesDiv.appendChild(presenteElement);
-            });
-        });
-    }
-</script>
-
-
 </body>
 </html>
