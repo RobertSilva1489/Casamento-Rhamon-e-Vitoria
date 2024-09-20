@@ -59,32 +59,5 @@ function carregarConfirmacoes() {
         });
     });
 }
-// Função para carregar a lista de presentes do banco de dados
-function carregarPresentes() {
-    const presentesRef = ref(db, 'presentes');
-    onValue(presentesRef, (snapshot) => {
-        const presenteSelect = document.getElementById('presente-lista');
-        presenteSelect.innerHTML = ''; // Limpar lista
-        snapshot.forEach((childSnapshot) => {
-            const presente = childSnapshot.val();
-            if (!presente.escolhidoPor) {  // Se não foi escolhido ainda
-                const option = document.createElement('option');
-                option.value = childSnapshot.key;
-                option.text = presente.nome;
-                presenteSelect.appendChild(option);
-            }
-        });
-    });
-}
-
-
-function mostrarAbaAdmin() {
-    document.getElementById('admin-tab').style.display = 'block';
-    openTab(null, 'admin');
-    carregarPresentesAdmin();
-    carregarPresencasAdmin();
-}
-
-
 
 
