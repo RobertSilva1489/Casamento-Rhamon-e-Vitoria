@@ -55,6 +55,7 @@ function login() {
             document.getElementById('admin-content').style.display = 'block';
             carregarConfirmacoes();
             carregarPresentes();
+            mostrarAbaAdmin()
             alert(`login`);
         })
         .catch((error) => {
@@ -136,6 +137,13 @@ function register() {
         .catch((error) => {
             console.error('Erro ao cadastrar usuário:', error.message);
         });
+}
+
+function mostrarAbaAdmin() {
+    document.getElementById('admin-tab').style.display = 'block';
+    openTab(null, 'admin');
+    carregarPresentesAdmin();
+    carregarPresencasAdmin();
 }
 
 
