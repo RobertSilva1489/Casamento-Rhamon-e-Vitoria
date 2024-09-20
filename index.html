@@ -215,7 +215,45 @@
                 });
             });
         }
+            // Carregar a lista de presentes já escolhidos e remover da lista de opções
+    function carregarPresentesDisponiveis() {
+        const presentesRef = ref(database, 'presentes');
+        const selectElement = document.getElementById('presente-lista');
+        
+        // Primeiro, restaurar todas as opções
+        const todasOpcoes = [
+            { value: "Liquidificador", text: "Liquidificador" },
+            { value: "Jogo de Toalhas", text: "Jogo de Toalhas" },
+            { value: "Ferro de Passar", text: "Ferro de Passar" },
+            { value: "Aparelho de Jantar", text: "Aparelho de Jantar" },
+            { value: "Panela de Pressão", text: "Panela de Pressão" }
+        ];
 
+        // Limpar o select e reinserir todas as opções
+        selectElement.innerHTML = '<option value="" disabled selected>Selecione um presente</option>';
+        todasOpcoes.forEach(opcao => {
+            const optionElement = document.createElement('option');
+            optionElement.value = opcao.value;
+            optionElement.textContent = opcao.text;
+            selectElement.appendChild(optionElement);
+        });
+
+        // Depois, carregar os presentes já selecionados e removê-los das opções
+        onValue(presentesRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const presenteEscolhido = childSnapshot.val().presente;
+
+                // Remover a opção correspondente ao presente já escolhido
+                const optionToRemove = document.querySelector(`#presente-lista option[value="${presenteEscolhido}"]`);
+                if (optionToRemove) {
+                    optionToRemove.remove();
+                }
+            });
+        });
+    }
+
+    // Carregar presentes disponíveis ao abrir a aba
+    window.addEventListener('load', carregarPresentesDisponiveis);
         function carregarPresentes() {
             const presentesRef = ref(database, 'presentes');
             onValue(presentesRef, (snapshot) => {
