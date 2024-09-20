@@ -259,6 +259,39 @@ window.onload = function() {
 
     </script>
 
+    <script>
+    // Defina a sequência de teclas que deve ser digitada (exemplo: "admin123")
+    const secretCode = "admin";
+    let inputSequence = "";
+
+    // Função para verificar a sequência de teclas digitada
+    document.addEventListener('keydown', function(event) {
+        // Adicione a tecla pressionada à sequência atual
+        inputSequence += event.key.toLowerCase();
+
+        // Se a sequência atual for maior que a sequência secreta, remova o excesso
+        if (inputSequence.length > secretCode.length) {
+            inputSequence = inputSequence.substring(inputSequence.length - secretCode.length);
+        }
+
+        // Verifica se a sequência digitada corresponde ao código secreto
+        if (inputSequence === secretCode) {
+            // Exibe a aba de administração
+            document.getElementById("admin").style.display = "block";
+
+            // Marcar a aba de admin como ativa
+            const adminTab = document.getElementById("admin-tab");
+            if (adminTab) {
+                adminTab.style.display = "inline-block"; // Mostra a aba
+                adminTab.classList.add("active"); // Define como ativa
+            }
+
+            // Reseta a sequência de entrada
+            inputSequence = "";
+        }
+    });
+</script>
+
   
 </body>
 </html>
