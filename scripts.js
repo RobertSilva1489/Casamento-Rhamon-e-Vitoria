@@ -44,20 +44,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
-// Função para carregar confirmações do banco de dados e exibir na aba de admin
-function carregarConfirmacoes() {
-    const confirmacaoRef = ref(database, 'confirmacoes');
-    onValue(confirmacaoRef, (snapshot) => {
-        const listaConfirmacoesDiv = document.getElementById('lista-confirmacoes');
-        listaConfirmacoesDiv.innerHTML = ''; // Limpa a lista antes de carregar os dados
-
-        snapshot.forEach((childSnapshot) => {
-            const confirmacao = childSnapshot.val();
-            const confirmacaoElement = document.createElement('p');
-            confirmacaoElement.innerHTML = `<strong>${confirmacao.nome}</strong>: ${confirmacao.adultos} adultos, ${confirmacao.criancas} crianças`;
-            listaConfirmacoesDiv.appendChild(confirmacaoElement);
-        });
-    });
-}
-
-
