@@ -73,5 +73,17 @@ function carregarConfirmacoes() {
     });
 }
 
+// Função de inicialização do Google Maps
+function initMap() {
+    const localEvento = {lat: -23.550520, lng: -46.633308}; // Coordenadas do local
+    const map = new google.maps.Map(document.getElementById("mapa"), {
+        zoom: 15,
+        center: localEvento
+    });
+    const marker = new google.maps.Marker({
+        position: localEvento,
+        map: map
+    });
+}
 
 
