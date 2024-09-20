@@ -43,19 +43,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName('tablinks')[0].click();
 });
 
-// Função de login de admin
-function loginAdmin() {
-    const senhaInserida = document.getElementById('admin-password').value;
-    const senhaCorreta = "sua-senha-segura"; // Substitua por sua senha
+// Função de login
+function login() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
-    if (senhaInserida === senhaCorreta) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Login bem-sucedido
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+            carregarConfirmacoes();
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(`Erro no login: ${errorMessage}`);
+        });
+}
+
+// Função de logout
+function logout() {
+    signOut(auth).then(() => {
+        // Logout bem-sucedido
+        document.getElementById('login-section').style.display = 'block';
+        document.getElementById('admin-content').style.display = 'none';
+    }).catch((error) => {
+        alert(`Erro no logout: ${error.message}`);
+    });
+}
+
+// Monitorar o estado de autenticação do usuário
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Usuário está logado
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('admin-content').style.display = 'block';
         carregarConfirmacoes();
+        carregarPresentes();
     } else {
-        alert("Senha incorreta.");
+        // Usuário não está logado
+        document.getElementById('login-section').style.display = 'block';
+        document.getElementById('admin-content').style.display = 'none';
     }
-}
+});
+
 
 // Função para carregar confirmações do banco de dados e exibir na aba de admin
 function carregarConfirmacoes() {
@@ -71,6 +103,37 @@ function carregarConfirmacoes() {
             listaConfirmacoesDiv.appendChild(confirmacaoElement);
         });
     });
+}
+// Função para carregar a lista de presentes do banco de dados
+function carregarPresentes() {
+    const presentesRef = ref(db, 'presentes');
+    onValue(presentesRef, (snapshot) => {
+        const presenteSelect = document.getElementById('presente-lista');
+        presenteSelect.innerHTML = ''; // Limpar lista
+        snapshot.forEach((childSnapshot) => {
+            const presente = childSnapshot.val();
+            if (!presente.escolhidoPor) {  // Se não foi escolhido ainda
+                const option = document.createElement('option');
+                option.value = childSnapshot.key;
+                option.text = presente.nome;
+                presenteSelect.appendChild(option);
+            }
+        });
+    });
+}
+
+// Função para cadastrar um novo usuário (não precisa estar no código final do site)
+function register() {
+    const email = "rhamonsouza2249@gmail.com";
+    const password = "robertsilva7";
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log('Usuário cadastrado:', userCredential.user);
+        })
+        .catch((error) => {
+            console.error('Erro ao cadastrar usuário:', error.message);
+        });
 }
 
 
