@@ -134,27 +134,43 @@ footer {
     animation: fadeEffect 0.5s;
 }
 
-.admin-grid {
-    display: flex;
-    gap: 20px; /* Espaço entre as colunas */
-    justify-content: space-between; /* Distribui o espaço uniformemente */
-    padding: 20px;
-}
+ .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Três colunas de tamanho igual */
+        gap: 20px; /* Espaçamento entre as colunas */
+    }
 
-.admin-section {
-    flex: 1; /* Faz com que cada coluna ocupe o mesmo espaço */
-    background-color: #f9f9f9;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow-y: auto;
-    max-height: 400px; /* Define uma altura máxima para rolagem */
-}
+    .admin-section {
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        overflow-y: auto; /* Permite rolagem caso o conteúdo seja muito grande */
+        max-height: 400px; /* Limite de altura, ajustável conforme o necessário */
+    }
 
-.admin-section h3 {
-    margin-top: 0;
-}
+    .admin-section h3 {
+        margin-bottom: 10px;
+        font-size: 1.5em;
+        text-align: center;
+    }
 
+    .admin-section div {
+        margin-bottom: 10px;
+    }
+
+    /* Aumentar o tamanho das colunas */
+    @media (min-width: 768px) {
+        .admin-grid {
+            grid-template-columns: 1fr 1fr 1fr; /* Três colunas maiores */
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .admin-grid {
+            grid-template-columns: 1.5fr 1.5fr 1.5fr; /* Aumenta ainda mais para telas maiores */
+        }
+    }
 
 /* Animação de efeito de fade */
 @keyframes fadeEffect {
