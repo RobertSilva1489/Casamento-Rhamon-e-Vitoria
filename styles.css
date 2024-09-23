@@ -134,7 +134,7 @@ footer {
     animation: fadeEffect 0.5s;
 }
 
- .admin-grid {
+.admin-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Três colunas de tamanho igual */
         gap: 20px; /* Espaçamento entre as colunas */
@@ -142,33 +142,40 @@ footer {
 
     .admin-section {
         border: 1px solid #ccc;
-        padding: 20px;
+        padding: 30px; /* Aumenta o espaçamento interno */
         background-color: #f9f9f9;
         border-radius: 8px;
         overflow-y: auto; /* Permite rolagem caso o conteúdo seja muito grande */
-        max-height: 600px; /* Limite de altura, ajustável conforme o necessário */
+        max-height: 500px; /* Limite de altura ajustável */
+        width: 100%; /* Faz com que ocupe a largura total disponível */
+        box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
     }
 
     .admin-section h3 {
-        margin-bottom: 10px;
-        font-size: 1.0em;
+        margin-bottom: 20px; /* Espaçamento maior abaixo do título */
+        font-size: 1.6em;
         text-align: center;
     }
 
     .admin-section div {
-        margin-bottom: 10px;
+        margin-bottom: 15px; /* Espaçamento entre os itens */
+        font-size: 1.1em; /* Aumenta o tamanho do texto */
+    }
+
+    .admin-section div p {
+        margin-bottom: 10px; /* Adiciona espaço entre os parágrafos */
     }
 
     /* Aumentar o tamanho das colunas */
     @media (min-width: 768px) {
         .admin-grid {
-            grid-template-columns: 2fr 2fr 2fr; /* Três colunas maiores */
+            grid-template-columns: 1fr 1fr 1fr; /* Três colunas maiores */
         }
     }
 
     @media (min-width: 1200px) {
         .admin-grid {
-            grid-template-columns: 3.5fr 3.5fr 3.5fr; /* Aumenta ainda mais para telas maiores */
+            grid-template-columns: 1.5fr 1.5fr 1.5fr; /* Colunas maiores para telas grandes */
         }
     }
 
