@@ -142,7 +142,7 @@ footer {
         overflow-y: auto; /* Permite rolagem caso o conteúdo seja muito grande */
         max-height: 500px; /* Limite de altura ajustável */
         margin-bottom: 20px; /* Espaço entre as caixas */
-        width: 120%; /* Aumenta a largura das caixas */
+        width: 80%; /* Aumenta a largura das caixas */
         margin-left: auto; /* Centraliza horizontalmente */
         margin-right: auto; /* Centraliza horizontalmente */
         box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
@@ -172,7 +172,7 @@ footer {
 
     @media (min-width: 1200px) {
         .admin-section {
-            width: 80%; /* Aumenta ainda mais em telas muito grandes */
+            width: 100%; /* Aumenta ainda mais em telas muito grandes */
         }
     }
 
