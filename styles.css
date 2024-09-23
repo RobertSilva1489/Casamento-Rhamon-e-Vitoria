@@ -136,7 +136,7 @@ footer {
 
  .admin-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Três colunas de tamanho igual */
+        grid-template-columns: repeat(3, 3fr); /* Três colunas de tamanho igual */
         gap: 20px; /* Espaçamento entre as colunas */
     }
 
