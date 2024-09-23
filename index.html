@@ -313,39 +313,7 @@
     });
 }
 
-        // Carregar fotos na galeria
-    function carregarGaleria() {
-        const fotosRef = ref(database, 'fotos'); // Supondo que você armazene as URLs das fotos em 'fotos'
-        onValue(fotosRef, (snapshot) => {
-            const galleryDiv = document.getElementById('gallery');
-            galleryDiv.innerHTML = ''; // Limpa a galeria existente
-            snapshot.forEach((childSnapshot) => {
-                const foto = childSnapshot.val();
-                const imgElement = document.createElement('a');
-                imgElement.href = foto.url; // URL da imagem
-                imgElement.setAttribute('data-lightbox', 'gallery'); // Atributo para Lightbox
-                imgElement.setAttribute('data-title', foto.titulo); // Atributo para título (opcional)
-                imgElement.innerHTML = `<img src="${foto.url}" alt="${foto.titulo}" />`;
-                galleryDiv.appendChild(imgElement);
-            });
-        });
-    }
-
-    // Carregar a galeria ao abrir a página
-    window.addEventListener('load', carregarGaleria);
-        // Mostrar a aba de administração se o PIN for correto
-        const adminPIN = "1234"; // Defina o PIN de administrador
-        document.getElementById('pin').addEventListener('input', function() {
-            const pin = document.getElementById('pin').value.trim();
-            if (pin === adminPIN) {
-                document.getElementById('admin-tab').style.display = "block";
-                carregarConfirmacoes();
-                carregarPresentes();
-                carregarMensagens(); 
-            }
-        });
-
-        // Função para abrir as abas
+      // Função para abrir as abas
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
