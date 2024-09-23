@@ -323,9 +323,6 @@ import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } f
 // Inicializa o Firebase Storage
 const storage = getStorage();
 
-// Inicializa o Firebase Realtime Database
-const database = getDatabase(); // ou getFirestore() caso esteja usando Firestore
-
 document.getElementById('enviar-fotos').addEventListener('click', function() {
     const input = document.getElementById('upload-foto');
     const files = input.files;
