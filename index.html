@@ -127,8 +127,10 @@
         <!-- Upload de Fotos -->
         <div class="admin-section">
             <h3>Upload de Fotos</h3>
-            <input type="text" id="url-foto" placeholder="URL da Foto" required>
-            <button id="upload-foto">Enviar Foto</button>
+            <form id="upload-form">
+             <input type="file" id="photo-input" accept="image/*" multiple>
+             <button type="submit">Fazer Upload</button>
+             </form>
             <div id="upload-sucesso"></div> <!-- Mensagem de sucesso -->
         </div>
     </div>
@@ -406,6 +408,8 @@ function carregarFotos() {
         }
 
         countdown();
+        // Chame carregarFotos quando a aba da galeria for aberta
+document.getElementById('galeria-tab').addEventListener('click', carregarFotos);
     </script>
 </body>
 </html>
