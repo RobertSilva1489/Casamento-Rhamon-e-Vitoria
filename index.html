@@ -318,43 +318,7 @@
     });
 }
 
-
-
-
-        // Função para carregar fotos na galeria
-function carregarFotos() {
-    const fotosRef = ref(database, 'galeria');
-    onValue(fotosRef, (snapshot) => {
-        const galeriaDiv = document.getElementById('foto-galeria');
-        galeriaDiv.innerHTML = ''; // Limpa a galeria antes de carregar novas fotos
-        snapshot.forEach((childSnapshot) => {
-            const foto = childSnapshot.val();
-            const imgElement = document.createElement('img');
-            imgElement.src = foto.url; // Supondo que você armazena a URL da foto
-            imgElement.alt = "Foto do Casamento"; // Descrição da foto
-            imgElement.className = "gallery-image"; // Adicione uma classe para estilização
-            galeriaDiv.appendChild(imgElement);
-        });
-    });
-}
-
-        // Mostrar a aba de administração se o PIN for correto
-    const adminPIN = "1234"; // Defina o PIN de administrador
-    document.getElementById('pin').addEventListener('input', function() {
-        const pin = document.getElementById('pin').value.trim();
-        if (pin === adminPIN) {
-            document.getElementById('admin-tab').style.display = "block";
-            alert("ADM MODE: ON");
-            carregarMensagens();
-            carregarPresentes();
-            carregarConfirmacoes();
-            
-            
-    }
-});
-
-    //  UPLOAD DE IMAGENS PARA A GALERIA
-    // Importa as funções necessárias do Firebase Storage e Realtime Database
+// Importa as funções necessárias do Firebase Storage e Realtime Database
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 import { getDatabase, ref as databaseRef, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js"; 
 // Caso esteja usando Firestore, use: import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
@@ -409,7 +373,38 @@ document.getElementById('enviar-fotos').addEventListener('click', function() {
 });
 
 
-        
+
+        // Função para carregar fotos na galeria
+function carregarFotos() {
+    const fotosRef = ref(database, 'galeria');
+    onValue(fotosRef, (snapshot) => {
+        const galeriaDiv = document.getElementById('foto-galeria');
+        galeriaDiv.innerHTML = ''; // Limpa a galeria antes de carregar novas fotos
+        snapshot.forEach((childSnapshot) => {
+            const foto = childSnapshot.val();
+            const imgElement = document.createElement('img');
+            imgElement.src = foto.url; // Supondo que você armazena a URL da foto
+            imgElement.alt = "Foto do Casamento"; // Descrição da foto
+            imgElement.className = "gallery-image"; // Adicione uma classe para estilização
+            galeriaDiv.appendChild(imgElement);
+        });
+    });
+}
+
+        // Mostrar a aba de administração se o PIN for correto
+    const adminPIN = "1234"; // Defina o PIN de administrador
+    document.getElementById('pin').addEventListener('input', function() {
+        const pin = document.getElementById('pin').value.trim();
+        if (pin === adminPIN) {
+            document.getElementById('admin-tab').style.display = "block";
+            alert("ADM MODE: ON");
+            carregarMensagens();
+            carregarPresentes();
+            carregarConfirmacoes();
+            
+            
+    }
+});      
       // Função para abrir as abas
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
