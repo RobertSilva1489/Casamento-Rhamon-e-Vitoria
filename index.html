@@ -138,6 +138,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
         import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        import { getStorage, ref as storageRef, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "API_KEY",
@@ -318,8 +319,7 @@
             alert("ADM MODE: ON");
             carregarMensagens();
             carregarPresentes();
-            carregarConfirmacoes();
-            
+            carregarConfirmacoes();   
             
     }
 });      
@@ -364,8 +364,43 @@
 
         countdown();
 
-        // Chama a função para carregar as fotos ao carregar a página
-        window.onload = carregarFotos;
+
+// Inicializa o Firebase Storage
+const storage = getStorage();
+
+// Referência ao diretório onde as fotos estão armazenadas no Firebase Storage
+const fotosFolderRef = storageRef(storage, 'fotos/');
+
+// Função para carregar as fotos do Firebase Storage e exibi-las na galeria
+function carregarFotosDoStorage() {
+    const galeria = document.getElementById('galeria');
+    galeria.innerHTML = ''; // Limpa a galeria antes de carregar as fotos
+
+    // Lista todos os itens no diretório 'fotos/'
+    listAll(fotosFolderRef)
+        .then((result) => {
+            result.items.forEach((itemRef) => {
+                // Para cada item (foto), obter o URL de download
+                getDownloadURL(itemRef).then((downloadURL) => {
+                    const img = document.createElement('img');
+                    img.src = downloadURL;
+                    img.alt = itemRef.name;
+                    img.style.width = '200px'; // Define o tamanho da imagem, ajuste conforme necessário
+                    img.style.margin = '10px'; // Adiciona um espaçamento entre as imagens
+                    galeria.appendChild(img);
+                }).catch((error) => {
+                    console.error('Erro ao obter URL da foto:', error);
+                });
+            });
+        }).catch((error) => {
+            console.error('Erro ao listar fotos no Firebase Storage:', error);
+            galeria.innerHTML = 'Erro ao carregar a galeria de fotos.';
+        });
+}
+
+// Chama a função para carregar as fotos ao carregar a página
+window.onload = carregarFotosDoStorage;
+
     </script>
 </body>
 </html>
