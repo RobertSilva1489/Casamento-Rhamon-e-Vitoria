@@ -61,3 +61,30 @@ document.getElementById('upload-form').addEventListener('submit', function (e) {
     document.getElementById('upload-form').reset();
 });
 
+import { getDatabase, ref as databaseRef, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+const db = getDatabase();
+
+// Função para carregar e exibir as fotos da galeria
+function carregarGaleria() {
+    const galeriaRef = databaseRef(db, 'galeria');
+    const fotosContainer = document.getElementById('fotos-container');
+
+    onValue(galeriaRef, (snapshot) => {
+        fotosContainer.innerHTML = ''; // Limpar a galeria antes de carregar
+        snapshot.forEach((childSnapshot) => {
+            const fotoData = childSnapshot.val();
+            const imgElement = document.createElement('img');
+            imgElement.src = fotoData.imageUrl;
+            imgElement.alt = "Foto da Galeria";
+            imgElement.style.width = "200px"; // Ajuste conforme necessário
+            imgElement.style.margin = "10px";
+
+            fotosContainer.appendChild(imgElement);
+        });
+    });
+}
+
+// Chame a função para carregar a galeria ao carregar a página
+window.addEventListener('load', carregarGaleria);
+
