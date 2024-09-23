@@ -175,6 +175,22 @@ footer {
         }
     }
 
+  #fotos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  #fotos-container img {
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  #fotos-container img:hover {
+    transform: scale(1.05);
+  }
+
 /* Animação de efeito de fade */
 @keyframes fadeEffect {
     from {opacity: 0;}
