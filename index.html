@@ -230,6 +230,7 @@
                 });
             });
         }
+        
             // Carregar a lista de presentes já escolhidos e remover da lista de opções
     function carregarPresentesDisponiveis() {
         const presentesRef = ref(database, 'presentes');
@@ -286,6 +287,20 @@
                 });
             });
         }
+        // Função para carregar mensagens enviadas pelos convidados
+        function carregarMensagens() {
+        const mensagensRef = ref(database, 'mensagens');
+         onValue(mensagensRef, (snapshot) => {
+        const mensagensDiv = document.getElementById('admin-mensagens');
+        mensagensDiv.innerHTML = ''; // Limpa as mensagens antigas antes de carregar as novas
+        snapshot.forEach((childSnapshot) => {
+            const mensagem = childSnapshot.val();
+            const div = document.createElement('div');
+            div.innerHTML = `<p><strong>${mensagem.nome}:</strong> ${mensagem.comentario}</p>`;
+            mensagensDiv.appendChild(div);
+        });
+    });
+}
 
         // Mostrar a aba de administração se o PIN for correto
         const adminPIN = "1234"; // Defina o PIN de administrador
@@ -295,6 +310,7 @@
                 document.getElementById('admin-tab').style.display = "block";
                 carregarConfirmacoes();
                 carregarPresentes();
+                carregarMensagens(); 
             }
         });
 
