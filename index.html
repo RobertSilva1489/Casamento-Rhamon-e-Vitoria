@@ -318,32 +318,44 @@
     });
 }
 
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+
+// Referência ao Firebase Storage
+const storage = getStorage();
+
 document.getElementById('enviar-fotos').addEventListener('click', function() {
     const input = document.getElementById('upload-foto');
-    const files = input.files; // Obter os arquivos selecionados
+    const files = input.files;
 
     if (files.length > 0) {
-        // Aqui você pode implementar a lógica para enviar os arquivos
-        const formData = new FormData();
-        
-        // Adiciona cada arquivo ao FormData
         for (let i = 0; i < files.length; i++) {
-            formData.append('fotos[]', files[i]);
-        }
+            const file = files[i];
+            const storageReference = storageRef(storage, 'fotos/' + file.name);
+            const uploadTask = uploadBytesResumable(storageReference, file);
 
-        // Exemplo de uso do Fetch API para enviar os arquivos
-        fetch('/upload-endpoint', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('upload-sucesso').innerText = 'Fotos enviadas com sucesso!';
-        })
-        .catch(error => {
-            console.error('Erro ao enviar fotos:', error);
-            document.getElementById('upload-sucesso').innerText = 'Erro ao enviar fotos.';
-        });
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                    // Progresso do upload
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                }, 
+                (error) => {
+                    console.error('Erro ao enviar fotos:', error);
+                    document.getElementById('upload-sucesso').innerText = 'Erro ao enviar fotos.';
+                }, 
+                () => {
+                    // Upload completo, obter URL da imagem
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        // Aqui você pode salvar o URL no Realtime Database
+                        const fotosRef = ref(database, 'galeria');
+                        push(fotosRef, {
+                            url: downloadURL
+                        });
+                        document.getElementById('upload-sucesso').innerText = 'Fotos enviadas com sucesso!';
+                    });
+                }
+            );
+        }
     } else {
         alert('Por favor, selecione uma ou mais fotos.');
     }
