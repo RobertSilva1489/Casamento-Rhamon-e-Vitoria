@@ -11,22 +11,6 @@ body {
     color: #333;
     text-align: center; /* Centralizar textos */
 }
-.gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            padding: 20px;
-        }
-        .gallery img {
-            width: 200px; /* Ajuste o tamanho das imagens aqui */
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
 header {
     background-image: url('IMG-20220621-WA0047.jpeg'); /* Substitua pelo caminho correto da imagem */
     background-size: cover;
