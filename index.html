@@ -23,6 +23,7 @@
         <button class="tablinks" onclick="openTab(event, 'confirmacao')">Confirmação de Presença</button>
         <button class="tablinks" onclick="openTab(event, 'informacoes')">Informações</button>
         <button class="tablinks" onclick="openTab(event, 'presentes')">Lista de Presentes</button>
+        <button class="tablinks" onclick="openTab(event, 'galeria')">Galeria de Fotos</button>
         <button class="tablinks" id="admin-tab" onclick="openTab(event, 'admin')" style="display:none;">Administração</button>
         <button class="tablinks" onclick="openTab(event, 'mensagens')">Mensagens</button>
         <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
@@ -95,6 +96,11 @@
         <div id="presente-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
         <div id="presentes-selecionados"></div>
     </div>
+<!-- Seção: Galeria de fotos -->
+    <div id="galeria" class="tabcontent">
+    <h2>Galeria de Fotos</h2>
+    <div id="foto-galeria" class="image-gallery"></div> <!-- Div para exibir as fotos -->
+</div>
 
 <!-- Seção: Administração (Somente admin) -->
 <div id="admin" class="tabcontent" style="display: none;">
@@ -117,7 +123,17 @@
             <h3>Mensagens</h3>
             <div id="admin-mensagens"></div>
         </div>
+
+        <!-- Upload de Fotos -->
+        <div class="admin-section">
+            <h3>Upload de Fotos</h3>
+            <input type="text" id="url-foto" placeholder="URL da Foto" required>
+            <button id="upload-foto">Enviar Foto</button>
+            <div id="upload-sucesso"></div> <!-- Mensagem de sucesso -->
         </div>
+    </div>
+</div>
+
 
     <!-- Seção: História do Casal -->
     <div id="historia" class="tabcontent">
@@ -300,6 +316,44 @@
         });
     });
 }
+
+        // Enviar foto para a galeria
+document.getElementById('upload-foto').addEventListener('click', function() {
+    const urlFoto = document.getElementById('url-foto').value.trim();
+
+    if (urlFoto === '') {
+        alert("Por favor, insira a URL da foto.");
+        return;
+    }
+
+    const galeriaRef = ref(database, 'galeria');
+    push(galeriaRef, {
+        url: urlFoto
+    }).then(() => {
+        document.getElementById('upload-sucesso').innerHTML = "<p>Foto enviada com sucesso!</p>";
+        document.getElementById('url-foto').value = ''; // Limpa o campo após o envio
+    });
+});
+
+        // Função para carregar fotos na galeria
+function carregarFotos() {
+    const fotosRef = ref(database, 'galeria');
+    onValue(fotosRef, (snapshot) => {
+        const galeriaDiv = document.getElementById('foto-galeria');
+        galeriaDiv.innerHTML = ''; // Limpa a galeria antes de carregar novas fotos
+        snapshot.forEach((childSnapshot) => {
+            const foto = childSnapshot.val();
+            const imgElement = document.createElement('img');
+            imgElement.src = foto.url; // Supondo que você armazena a URL da foto
+            imgElement.alt = "Foto do Casamento"; // Descrição da foto
+            imgElement.className = "gallery-image"; // Adicione uma classe para estilização
+            galeriaDiv.appendChild(imgElement);
+        });
+    });
+}
+
+// Chame carregarFotos quando a aba da galeria for aberta
+document.getElementById('galeria-tab').addEventListener('click', carregarFotos);
 
         // Mostrar a aba de administração se o PIN for correto
     const adminPIN = "1234"; // Defina o PIN de administrador
