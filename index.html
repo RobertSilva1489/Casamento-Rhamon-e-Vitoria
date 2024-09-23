@@ -361,6 +361,7 @@ document.getElementById('galeria-tab').addEventListener('click', carregarFotos);
         const pin = document.getElementById('pin').value.trim();
         if (pin === adminPIN) {
             document.getElementById('admin-tab').style.display = "block";
+            alert("ADM MODE: ON");
             carregarMensagens();
             carregarPresentes();
             carregarConfirmacoes();
