@@ -134,23 +134,17 @@ footer {
     animation: fadeEffect 0.5s;
 }
 
-.admin-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Três colunas de tamanho igual */
-        gap: 20px; /* Espaçamento entre as colunas */
-        margin: 0 auto; /* Centraliza o conteúdo */
-        max-width: 1200px; /* Define uma largura máxima para a grid */
-        padding: 0 30px; /* Adiciona padding nas laterais */
-    }
-
-    .admin-section {
+.admin-section {
         border: 1px solid #ccc;
         padding: 30px; /* Aumenta o espaçamento interno */
         background-color: #f9f9f9;
         border-radius: 8px;
         overflow-y: auto; /* Permite rolagem caso o conteúdo seja muito grande */
         max-height: 500px; /* Limite de altura ajustável */
-        width: 100%; /* Faz com que ocupe a largura total disponível na coluna */
+        margin-bottom: 20px; /* Espaço entre as caixas */
+        width: 80%; /* Aumenta a largura das caixas */
+        margin-left: auto; /* Centraliza horizontalmente */
+        margin-right: auto; /* Centraliza horizontalmente */
         box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
     }
 
@@ -169,17 +163,16 @@ footer {
         margin-bottom: 10px; /* Adiciona espaço entre os parágrafos */
     }
 
-    /* Aumentar o tamanho das colunas para telas grandes */
+    /* Aumenta o tamanho das seções em telas maiores */
     @media (min-width: 768px) {
-        .admin-grid {
-            grid-template-columns: 1fr 1fr 1fr; /* Três colunas de tamanho igual */
+        .admin-section {
+            width: 70%; /* Aumenta a largura das caixas */
         }
     }
 
     @media (min-width: 1200px) {
-        .admin-grid {
-            grid-template-columns: 1fr 1fr 1fr; /* Colunas maiores */
-            padding: 0 60px; /* Aumenta o padding nas laterais para telas maiores */
+        .admin-section {
+            width: 60%; /* Aumenta ainda mais em telas muito grandes */
         }
     }
 
