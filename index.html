@@ -64,7 +64,9 @@
         <div id="mapa" style="width:100%;height:300px;"></div>
         <p><strong>Endereço:</strong> A DEFINIR</p>
     </div>
-
+<!-- Seção: Mensagens para os Noivos -->
+    <div class="gallery" id="gallery"></div>
+      <h3>Galeria de Fotos</h3>
     <!-- Seção: Mensagens para os Noivos -->
     <div id="mensagens" class="tabcontent">
         <h2>Deixe uma mensagem para os noivos</h2>
@@ -314,6 +316,26 @@
     });
 }
 
+        // Carregar fotos na galeria
+    function carregarGaleria() {
+        const fotosRef = ref(database, 'fotos'); // Supondo que você armazene as URLs das fotos em 'fotos'
+        onValue(fotosRef, (snapshot) => {
+            const galleryDiv = document.getElementById('gallery');
+            galleryDiv.innerHTML = ''; // Limpa a galeria existente
+            snapshot.forEach((childSnapshot) => {
+                const foto = childSnapshot.val();
+                const imgElement = document.createElement('a');
+                imgElement.href = foto.url; // URL da imagem
+                imgElement.setAttribute('data-lightbox', 'gallery'); // Atributo para Lightbox
+                imgElement.setAttribute('data-title', foto.titulo); // Atributo para título (opcional)
+                imgElement.innerHTML = `<img src="${foto.url}" alt="${foto.titulo}" />`;
+                galleryDiv.appendChild(imgElement);
+            });
+        });
+    }
+
+    // Carregar a galeria ao abrir a página
+    window.addEventListener('load', carregarGaleria);
         // Mostrar a aba de administração se o PIN for correto
         const adminPIN = "1234"; // Defina o PIN de administrador
         document.getElementById('pin').addEventListener('input', function() {
