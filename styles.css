@@ -136,7 +136,7 @@ footer {
 
  .admin-grid {
         display: grid;
-        grid-template-columns: repeat(3, 3fr); /* Três colunas de tamanho igual */
+        grid-template-columns: repeat(3, 1fr); /* Três colunas de tamanho igual */
         gap: 20px; /* Espaçamento entre as colunas */
     }
 
@@ -146,12 +146,12 @@ footer {
         background-color: #f9f9f9;
         border-radius: 8px;
         overflow-y: auto; /* Permite rolagem caso o conteúdo seja muito grande */
-        max-height: 400px; /* Limite de altura, ajustável conforme o necessário */
+        max-height: 600px; /* Limite de altura, ajustável conforme o necessário */
     }
 
     .admin-section h3 {
         margin-bottom: 10px;
-        font-size: 1.5em;
+        font-size: 1.0em;
         text-align: center;
     }
 
@@ -162,13 +162,13 @@ footer {
     /* Aumentar o tamanho das colunas */
     @media (min-width: 768px) {
         .admin-grid {
-            grid-template-columns: 1fr 1fr 1fr; /* Três colunas maiores */
+            grid-template-columns: 2fr 2fr 2fr; /* Três colunas maiores */
         }
     }
 
     @media (min-width: 1200px) {
         .admin-grid {
-            grid-template-columns: 1.5fr 1.5fr 1.5fr; /* Aumenta ainda mais para telas maiores */
+            grid-template-columns: 3.5fr 3.5fr 3.5fr; /* Aumenta ainda mais para telas maiores */
         }
     }
 
