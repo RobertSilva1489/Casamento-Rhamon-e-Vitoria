@@ -338,6 +338,7 @@ document.getElementById('enviar-fotos').addEventListener('click', function() {
                     // Progresso do upload
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
+                    alert("Upadas");
                 }, 
                 (error) => {
                     console.error('Erro ao enviar fotos:', error);
