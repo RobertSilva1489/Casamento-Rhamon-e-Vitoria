@@ -134,6 +134,28 @@ footer {
     animation: fadeEffect 0.5s;
 }
 
+.admin-grid {
+    display: flex;
+    gap: 20px; /* Espaço entre as colunas */
+    justify-content: space-between; /* Distribui o espaço uniformemente */
+    padding: 20px;
+}
+
+.admin-section {
+    flex: 1; /* Faz com que cada coluna ocupe o mesmo espaço */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 400px; /* Define uma altura máxima para rolagem */
+}
+
+.admin-section h3 {
+    margin-top: 0;
+}
+
+
 /* Animação de efeito de fade */
 @keyframes fadeEffect {
     from {opacity: 0;}
