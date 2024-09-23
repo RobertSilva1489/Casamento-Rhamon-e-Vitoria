@@ -367,12 +367,6 @@ document.getElementById('enviar-fotos').addEventListener('click', function() {
     }
 });
 
-
-import { getDatabase, ref as databaseRef, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-
-// Inicializa o Realtime Database
-const database = getDatabase();
-
 // Referência ao nó 'galeria' no Realtime Database
 const fotosRef = databaseRef(database, 'galeria');
 
