@@ -318,23 +318,37 @@
     });
 }
 
-        // Enviar foto para a galeria
-document.getElementById('upload-foto').addEventListener('click', function() {
-    const urlFoto = document.getElementById('upload-foto').value.trim();
+document.getElementById('enviar-fotos').addEventListener('click', function() {
+    const input = document.getElementById('upload-foto');
+    const files = input.files; // Obter os arquivos selecionados
 
-    if (urlFoto === '') {
-        alert("Por favor, insira a URL da foto.");
-        return;
+    if (files.length > 0) {
+        // Aqui você pode implementar a lógica para enviar os arquivos
+        const formData = new FormData();
+        
+        // Adiciona cada arquivo ao FormData
+        for (let i = 0; i < files.length; i++) {
+            formData.append('fotos[]', files[i]);
+        }
+
+        // Exemplo de uso do Fetch API para enviar os arquivos
+        fetch('/upload-endpoint', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('upload-sucesso').innerText = 'Fotos enviadas com sucesso!';
+        })
+        .catch(error => {
+            console.error('Erro ao enviar fotos:', error);
+            document.getElementById('upload-sucesso').innerText = 'Erro ao enviar fotos.';
+        });
+    } else {
+        alert('Por favor, selecione uma ou mais fotos.');
     }
-
-    const galeriaRef = ref(database, 'galeria');
-    push(galeriaRef, {
-        url: urlFoto
-    }).then(() => {
-        document.getElementById('upload-sucesso').innerHTML = "<p>Foto enviada com sucesso!</p>";
-        document.getElementById('upload-foto').value = ''; // Limpa o campo após o envio
-    });
 });
+
 
         // Função para carregar fotos na galeria
 function carregarFotos() {
