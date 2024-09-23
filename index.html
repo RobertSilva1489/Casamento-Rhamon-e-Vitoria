@@ -368,23 +368,45 @@ document.getElementById('enviar-fotos').addEventListener('click', function() {
 });
 
 
+import { getDatabase, ref as databaseRef, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
-        // Função para carregar fotos na galeria
+// Inicializa o Realtime Database
+const database = getDatabase();
+
+// Referência ao nó 'galeria' no Realtime Database
+const fotosRef = databaseRef(database, 'galeria');
+
+// Função para carregar as fotos e exibi-las na galeria
 function carregarFotos() {
-    const fotosRef = ref(database, 'galeria');
     onValue(fotosRef, (snapshot) => {
-        const galeriaDiv = document.getElementById('foto-galeria');
-        galeriaDiv.innerHTML = ''; // Limpa a galeria antes de carregar novas fotos
-        snapshot.forEach((childSnapshot) => {
-            const foto = childSnapshot.val();
-            const imgElement = document.createElement('img');
-            imgElement.src = foto.url; // Supondo que você armazena a URL da foto
-            imgElement.alt = "Foto do Casamento"; // Descrição da foto
-            imgElement.className = "gallery-image"; // Adicione uma classe para estilização
-            galeriaDiv.appendChild(imgElement);
-        });
+        const galeria = document.getElementById('galeria-fotos');
+        galeria.innerHTML = ''; // Limpa a galeria antes de carregar as fotos
+
+        // Se houver fotos, exibe-as
+        if (snapshot.exists()) {
+            const fotos = snapshot.val();
+            for (let key in fotos) {
+                if (fotos.hasOwnProperty(key)) {
+                    const foto = fotos[key];
+                    const img = document.createElement('img');
+                    img.src = foto.url;
+                    img.alt = foto.nome;
+                    img.style.width = '200px'; // Define o tamanho da imagem, ajuste conforme necessário
+                    img.style.margin = '10px'; // Adiciona um espaçamento entre as imagens
+                    galeria.appendChild(img);
+                }
+            }
+        } else {
+            galeria.innerHTML = 'Nenhuma foto disponível na galeria.';
+        }
+    }, {
+        onlyOnce: true // opcional: define se o ouvinte será chamado uma única vez
     });
 }
+
+// Chama a função para carregar as fotos ao carregar a página
+window.onload = carregarFotos;
+
 
         // Mostrar a aba de administração se o PIN for correto
     const adminPIN = "1234"; // Defina o PIN de administrador
