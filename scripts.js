@@ -24,3 +24,32 @@ function openTab(evt, tabName) {
 document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName('tablinks')[0].click();
 });
+// Importa as funções necessárias do Firebase
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+// Inicializa o Firebase Database
+const database = getDatabase();
+
+// Função para gerar um PIN de 6 dígitos
+function gerarPin() {
+    return Math.floor(100000 + Math.random() * 900000).toString(); // Garante 6 dígitos
+}
+
+// Função para gerar e salvar os 50 PINs
+function gerarEPersistirPins() {
+    const totalPins = 50;
+    const pinsSet = new Set();
+
+    while (pinsSet.size < totalPins) {
+        pinsSet.add(gerarPin());
+    }
+
+    const pinsRef = ref(database, "pins");
+
+    pinsSet.forEach(pin => {
+        push(pinsRef, { pin: pin });
+    });
+}
+
+// Adiciona evento ao botão
+document.getElementById("gerarPins").addEventListener("click", gerarEPersistirPins);
