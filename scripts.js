@@ -24,4 +24,26 @@ function openTab(evt, tabName) {
 document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementsByClassName('tablinks')[0].click();
 });
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+const database = getDatabase();
+const confirmadosRef = ref(database, 'confirmados');
+
+onValue(confirmadosRef, (snapshot) => {
+    let totalAdultos = 0;
+    let totalCriancas = 0;
+
+    if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+            const dados = childSnapshot.val();
+            totalAdultos += dados.adultos || 0;
+            totalCriancas += dados.criancas || 0;
+        });
+    }
+
+    document.getElementById('total-adultos').innerText = `Total de adultos: ${totalAdultos}`;
+    document.getElementById('total-criancas').innerText = `Total de crianças: ${totalCriancas}`;
+});
+
+
 
