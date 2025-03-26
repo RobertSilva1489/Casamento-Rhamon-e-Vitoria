@@ -109,6 +109,8 @@
         <!-- Confirmados -->
         <div class="admin-section">
             <h3>Confirmados (Presenças)</h3>
+            <h3 id="total-adultos">Total de adultos: 0</h3>
+            <h3 id="total-criancas">Total de crianças: 0</h3>
             <div id="admin-presencas"></div>
         </div>
 
@@ -240,6 +242,8 @@
                     totalCriancas += dados.criancas || 0;
                     div.innerHTML = `<p>Nome: ${confirmacao.nome}, Adultos: ${confirmacao.adultos}, Crianças: ${confirmacao.criancas}</p>`;
                     confirmacoesDiv.appendChild(div);
+                    document.getElementById('total-adultos').innerText = `Total de adultos: ${totalAdultos}`;
+                    document.getElementById('total-criancas').innerText = `Total de crianças: ${totalCriancas}`;
                 });
             });
         }
