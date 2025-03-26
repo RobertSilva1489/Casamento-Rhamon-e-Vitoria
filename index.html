@@ -29,8 +29,6 @@
         <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
     </div>
     
-    <button id="gerarPins">Gerar PINs</button>
-    
     <!-- Seção: Home -->
     <div id="home" class="tabcontent">
         <h2>Bem-vindos ao nosso site de casamento!</h2>
@@ -154,28 +152,6 @@
             appId: "1:720900428201:web:88e4ed92d814ffd8c4f4b8",
             measurementId: "G-B64QKB1PGN"
         };
-
-        
-    // Função para gerar um PIN de 6 dígitos
-        function gerarPin() {
-            return Math.floor(100000 + Math.random() * 900000).toString(); // Garante 6 dígitos
-        }
-        
-            // Função para gerar e salvar os 50 PINs
-            function gerarEPersistirPins() {
-                const totalPins = 50;
-                const pinsSet = new Set();
-            
-                while (pinsSet.size < totalPins) {
-                    pinsSet.add(gerarPin());
-                }
-            
-                const pinsRef = ref(database, "pins");
-            
-                pinsSet.forEach(pin => {
-                    push(pinsRef, { pin: pin });
-                });
-            }
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
@@ -353,7 +329,6 @@
             carregarMensagens();
             carregarPresentes();
             carregarConfirmacoes();
-            gerarEPersistirPins();
     }
 });      
       // Função para abrir as abas
