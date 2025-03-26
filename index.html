@@ -228,11 +228,16 @@
         function carregarConfirmacoes() {
             const confirmacoesRef = ref(database, 'confirmacoes');
             onValue(confirmacoesRef, (snapshot) => {
+                let totalAdultos = 0;
+                let totalCriancas = 0;
                 const confirmacoesDiv = document.getElementById('admin-presencas');
                 confirmacoesDiv.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
                     const confirmacao = childSnapshot.val();
                     const div = document.createElement('div');
+                    const dados = childSnapshot.val();
+                    totalAdultos += dados.adultos || 0;
+                    totalCriancas += dados.criancas || 0;
                     div.innerHTML = `<p>Nome: ${confirmacao.nome}, Adultos: ${confirmacao.adultos}, Crianças: ${confirmacao.criancas}</p>`;
                     confirmacoesDiv.appendChild(div);
                 });
