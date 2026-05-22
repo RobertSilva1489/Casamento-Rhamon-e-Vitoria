@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<title>Rhamon &amp; Vitória</title>
+<h1>Rhamon &amp; Vitória</h1>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +28,7 @@
         <button class="tablinks" onclick="openTab(event, 'mensagens')">Mensagens</button>
         <button class="tablinks" onclick="openTab(event, 'historia')">Nossa História</button>
     </div>
-    
+
     <!-- Seção: Home -->
     <div id="home" class="tabcontent">
         <h2>Bem-vindos ao nosso site de casamento!</h2>
@@ -71,7 +73,7 @@
         </div>
         <p><strong>Endereço:</strong> R. Adalto Moraes, 6 - Jardim Florida, Juazeiro - BA, 48903-970</p>
     </div>
-    
+
     <!-- Seção: Mensagens para os Noivos -->
     <div id="mensagens" class="tabcontent">
         <h2>Deixe uma mensagem para os noivos</h2>
@@ -103,37 +105,37 @@
         <div id="presente-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
         <div id="presentes-selecionados"></div>
     </div>
-<!-- Seção: Galeria de fotos -->
+    <!-- Seção: Galeria de fotos -->
     <div id="galeria" class="tabcontent">
-    <h2>Galeria de Fotos</h2>
-    <div id="foto-galeria" class="image-gallery"></div> <!-- Div para exibir as fotos -->
-</div>
+        <h2>Galeria de Fotos</h2>
+        <div id="foto-galeria" class="image-gallery"></div> <!-- Div para exibir as fotos -->
+    </div>
 
-<!-- Seção: Administração (Somente admin) -->
-<div id="admin" class="tabcontent" style="display: none;">
-    <h2>Administração</h2>
-    <div class="admin-grid">
-        <!-- Confirmados -->
-        <div class="admin-section">
-            <h3>Confirmados (Presenças)</h3>
-            <h3 id="total-adultos">Total de adultos: 0</h3>
-            <h3 id="total-criancas">Total de crianças: 0</h3>
-            <div id="admin-presencas"></div>
-        </div>
+    <!-- Seção: Administração (Somente admin) -->
+    <div id="admin" class="tabcontent" style="display: none;">
+        <h2>Administração</h2>
+        <div class="admin-grid">
+            <!-- Confirmados -->
+            <div class="admin-section">
+                <h3>Confirmados (Presenças)</h3>
+                <h3 id="total-adultos">Total de adultos: 0</h3>
+                <h3 id="total-criancas">Total de crianças: 0</h3>
+                <div id="admin-presencas"></div>
+            </div>
 
-        <!-- Presentes escolhidos -->
-        <div class="admin-section">
-            <h3>Lista de Presentes Escolhidos</h3>
-            <div id="admin-presentes"></div>
-        </div>
+            <!-- Presentes escolhidos -->
+            <div class="admin-section">
+                <h3>Lista de Presentes Escolhidos</h3>
+                <div id="admin-presentes"></div>
+            </div>
 
-        <!-- Mensagens enviadas -->
-        <div class="admin-section">
-            <h3>Mensagens</h3>
-            <div id="admin-mensagens"></div>
+            <!-- Mensagens enviadas -->
+            <div class="admin-section">
+                <h3>Mensagens</h3>
+                <div id="admin-mensagens"></div>
+            </div>
         </div>
     </div>
-</div>
 
 
     <!-- Seção: História do Casal -->
@@ -150,14 +152,14 @@
         import { getStorage, ref as storageRef, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
         const firebaseConfig = {
-            apiKey: "API_KEY",
-            authDomain: "comentario-site-c0956.firebaseapp.com",
-            databaseURL: "https://comentario-site-c0956-default-rtdb.firebaseio.com",
-            projectId: "comentario-site-c0956",
-            storageBucket: "comentario-site-c0956.appspot.com",
-            messagingSenderId: "720900428201",
-            appId: "1:720900428201:web:88e4ed92d814ffd8c4f4b8",
-            measurementId: "G-B64QKB1PGN"
+        apiKey: "API_KEY",
+        authDomain: "comentario-site-c0956.firebaseapp.com",
+        databaseURL: "https://comentario-site-c0956-default-rtdb.firebaseio.com",
+        projectId: "comentario-site-c0956",
+        storageBucket: "comentario-site-c0956.appspot.com",
+        messagingSenderId: "720900428201",
+        appId: "1:720900428201:web:88e4ed92d814ffd8c4f4b8",
+        measurementId: "G-B64QKB1PGN"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -165,256 +167,256 @@
 
         // Enviar confirmação de presença
         document.getElementById('confirmacao-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nome = document.getElementById('nome').value.trim();
-            const pin = document.getElementById('pin').value.trim();
-            const adultos = document.getElementById('adultos').value;
-            const criancas = document.getElementById('criancas').value;
+        e.preventDefault();
+        const nome = document.getElementById('nome').value.trim();
+        const pin = document.getElementById('pin').value.trim();
+        const adultos = document.getElementById('adultos').value;
+        const criancas = document.getElementById('criancas').value;
 
-            if (nome === '' || pin === '') {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
+        if (nome === '' || pin === '') {
+        alert("Por favor, preencha todos os campos.");
+        return;
+        }
 
-            const confirmacaoRef = ref(database, 'confirmacoes');
-            push(confirmacaoRef, {
-                nome: nome,
-                pin: pin,
-                adultos: adultos,
-                criancas: criancas
-            }).then(() => {
-                document.getElementById('confirmacao-sucesso').innerHTML = "<p>Confirmação enviada com sucesso!</p>";
-            });
+        const confirmacaoRef = ref(database, 'confirmacoes');
+        push(confirmacaoRef, {
+        nome: nome,
+        pin: pin,
+        adultos: adultos,
+        criancas: criancas
+        }).then(() => {
+        document.getElementById('confirmacao-sucesso').innerHTML = "<p>Confirmação enviada com sucesso!</p>";
+        });
 
-            document.getElementById('confirmacao-form').reset();
+        document.getElementById('confirmacao-form').reset();
         });
 
         // Enviar mensagem
         document.getElementById('mensagem-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nomeMensagem = document.getElementById('nome-mensagem').value.trim();
-            const comentario = document.getElementById('comentario').value.trim();
+        e.preventDefault();
+        const nomeMensagem = document.getElementById('nome-mensagem').value.trim();
+        const comentario = document.getElementById('comentario').value.trim();
 
-            if (nomeMensagem === '' || comentario === '') {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
+        if (nomeMensagem === '' || comentario === '') {
+        alert("Por favor, preencha todos os campos.");
+        return;
+        }
 
-            const mensagensRef = ref(database, 'mensagens');
-            push(mensagensRef, {
-                nome: nomeMensagem,
-                comentario: comentario
-            }).then(() => {
-                document.getElementById('mensagem-sucesso').innerHTML = "<p>Mensagem enviada com sucesso!</p>";
-            });
+        const mensagensRef = ref(database, 'mensagens');
+        push(mensagensRef, {
+        nome: nomeMensagem,
+        comentario: comentario
+        }).then(() => {
+        document.getElementById('mensagem-sucesso').innerHTML = "<p>Mensagem enviada com sucesso!</p>";
+        });
 
-            document.getElementById('mensagem-form').reset();
+        document.getElementById('mensagem-form').reset();
         });
 
         // Escolher presente
         document.getElementById('presentes-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nomeConvidado = document.getElementById('nome-convidado').value.trim();
-            const presenteSelecionado = document.getElementById('presente-lista').value;
+        e.preventDefault();
+        const nomeConvidado = document.getElementById('nome-convidado').value.trim();
+        const presenteSelecionado = document.getElementById('presente-lista').value;
 
-            if (nomeConvidado === '' || presenteSelecionado === '') {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
+        if (nomeConvidado === '' || presenteSelecionado === '') {
+        alert("Por favor, preencha todos os campos.");
+        return;
+        }
 
-            const presentesRef = ref(database, 'presentes');
-            push(presentesRef, {
-                nome: nomeConvidado,
-                presente: presenteSelecionado
-            }).then(() => {
-                document.getElementById('presente-sucesso').innerHTML = "<p>Presente escolhido com sucesso!</p>";
-            });
+        const presentesRef = ref(database, 'presentes');
+        push(presentesRef, {
+        nome: nomeConvidado,
+        presente: presenteSelecionado
+        }).then(() => {
+        document.getElementById('presente-sucesso').innerHTML = "<p>Presente escolhido com sucesso!</p>";
+        });
 
-            document.getElementById('presentes-form').reset();
+        document.getElementById('presentes-form').reset();
         });
 
         // Carregar confirmações e presentes na aba de administração
         function carregarConfirmacoes() {
-            const confirmacoesRef = ref(database, 'confirmacoes');
-            onValue(confirmacoesRef, (snapshot) => {
-                let totalAdultos = 0;
-                let totalCriancas = 0;
-                const confirmacoesDiv = document.getElementById('admin-presencas');
-                confirmacoesDiv.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const confirmacao = childSnapshot.val();
-                    const div = document.createElement('div');
-                    const dados = childSnapshot.val();
-                    totalAdultos += Number (dados.adultos) || 0;
-                    totalCriancas += Number (dados.criancas) || 0;
-                    div.innerHTML = `<p>Nome: ${confirmacao.nome}, Adultos: ${confirmacao.adultos}, Crianças: ${confirmacao.criancas}</p>`;
-                    confirmacoesDiv.appendChild(div);
-                    document.getElementById('total-adultos').innerText = `Total de adultos: ${totalAdultos}`;
-                    document.getElementById('total-criancas').innerText = `Total de crianças: ${totalCriancas}`;
-                });
-            });
+        const confirmacoesRef = ref(database, 'confirmacoes');
+        onValue(confirmacoesRef, (snapshot) => {
+        let totalAdultos = 0;
+        let totalCriancas = 0;
+        const confirmacoesDiv = document.getElementById('admin-presencas');
+        confirmacoesDiv.innerHTML = '';
+        snapshot.forEach((childSnapshot) => {
+        const confirmacao = childSnapshot.val();
+        const div = document.createElement('div');
+        const dados = childSnapshot.val();
+        totalAdultos += Number (dados.adultos) || 0;
+        totalCriancas += Number (dados.criancas) || 0;
+        div.innerHTML = `<p>Nome: ${confirmacao.nome}, Adultos: ${confirmacao.adultos}, Crianças: ${confirmacao.criancas}</p>`;
+        confirmacoesDiv.appendChild(div);
+        document.getElementById('total-adultos').innerText = `Total de adultos: ${totalAdultos}`;
+        document.getElementById('total-criancas').innerText = `Total de crianças: ${totalCriancas}`;
+        });
+        });
         }
-        
-            // Carregar a lista de presentes já escolhidos e remover da lista de opções
-    function carregarPresentesDisponiveis() {
+
+        // Carregar a lista de presentes já escolhidos e remover da lista de opções
+        function carregarPresentesDisponiveis() {
         const presentesRef = ref(database, 'presentes');
         const selectElement = document.getElementById('presente-lista');
-        
+
         // Primeiro, restaurar todas as opções
         const todasOpcoes = [
-            { value: "Liquidificador", text: "Liquidificador" },
-            { value: "Jogo de Toalhas", text: "Jogo de Toalhas" },
-            { value: "Ferro de Passar", text: "Ferro de Passar" },
-            { value: "Aparelho de Jantar", text: "Aparelho de Jantar" },
-            { value: "Panela de Pressão", text: "Panela de Pressão" },
-            { value: "Cafeteira", text: "Cafeteira" }, // Novo item
-            { value: "Máquina de Lavar", text: "Máquina de Lavar" }, // Novo item
-            { value: "Ventilador", text: "Ventilador" }, // Novo item
-            { value: "Geladeira", text: "Geladeira" } // Novo item
+        { value: "Liquidificador", text: "Liquidificador" },
+        { value: "Jogo de Toalhas", text: "Jogo de Toalhas" },
+        { value: "Ferro de Passar", text: "Ferro de Passar" },
+        { value: "Aparelho de Jantar", text: "Aparelho de Jantar" },
+        { value: "Panela de Pressão", text: "Panela de Pressão" },
+        { value: "Cafeteira", text: "Cafeteira" }, // Novo item
+        { value: "Máquina de Lavar", text: "Máquina de Lavar" }, // Novo item
+        { value: "Ventilador", text: "Ventilador" }, // Novo item
+        { value: "Geladeira", text: "Geladeira" } // Novo item
         ];
 
         // Limpar o select e reinserir todas as opções
         selectElement.innerHTML = '<option value="" disabled selected>Selecione um presente</option>';
         todasOpcoes.forEach(opcao => {
-            const optionElement = document.createElement('option');
-            optionElement.value = opcao.value;
-            optionElement.textContent = opcao.text;
-            selectElement.appendChild(optionElement);
+        const optionElement = document.createElement('option');
+        optionElement.value = opcao.value;
+        optionElement.textContent = opcao.text;
+        selectElement.appendChild(optionElement);
         });
 
         // Depois, carregar os presentes já selecionados e removê-los das opções
         onValue(presentesRef, (snapshot) => {
-            snapshot.forEach((childSnapshot) => {
-                const presenteEscolhido = childSnapshot.val().presente;
+        snapshot.forEach((childSnapshot) => {
+        const presenteEscolhido = childSnapshot.val().presente;
 
-                // Remover a opção correspondente ao presente já escolhido
-                const optionToRemove = document.querySelector(`#presente-lista option[value="${presenteEscolhido}"]`);
-                if (optionToRemove) {
-                    optionToRemove.remove();
-                }
-            });
+        // Remover a opção correspondente ao presente já escolhido
+        const optionToRemove = document.querySelector(`#presente-lista option[value="${presenteEscolhido}"]`);
+        if (optionToRemove) {
+        optionToRemove.remove();
+        }
         });
-    }
+        });
+        }
 
-    // Carregar presentes disponíveis ao abrir a aba
-    window.addEventListener('load', carregarPresentesDisponiveis);
+        // Carregar presentes disponíveis ao abrir a aba
+        window.addEventListener('load', carregarPresentesDisponiveis);
         function carregarPresentes() {
-            const presentesRef = ref(database, 'presentes');
-            onValue(presentesRef, (snapshot) => {
-                const presentesDiv = document.getElementById('admin-presentes');
-                presentesDiv.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const presente = childSnapshot.val();
-                    const div = document.createElement('div');
-                    div.innerHTML = `<p>Nome: ${presente.nome}, Presente: ${presente.presente}</p>`;
-                    presentesDiv.appendChild(div);
-                });
-            });
+        const presentesRef = ref(database, 'presentes');
+        onValue(presentesRef, (snapshot) => {
+        const presentesDiv = document.getElementById('admin-presentes');
+        presentesDiv.innerHTML = '';
+        snapshot.forEach((childSnapshot) => {
+        const presente = childSnapshot.val();
+        const div = document.createElement('div');
+        div.innerHTML = `<p>Nome: ${presente.nome}, Presente: ${presente.presente}</p>`;
+        presentesDiv.appendChild(div);
+        });
+        });
         }
         // Função para carregar mensagens enviadas pelos convidados
         function carregarMensagens() {
         const mensagensRef = ref(database, 'mensagens');
-         onValue(mensagensRef, (snapshot) => {
+        onValue(mensagensRef, (snapshot) => {
         const mensagensDiv = document.getElementById('admin-mensagens');
         mensagensDiv.innerHTML = ''; // Limpa as mensagens antigas antes de carregar as novas
         snapshot.forEach((childSnapshot) => {
-            const mensagem = childSnapshot.val();
-            const div = document.createElement('div');
-            div.innerHTML = `<p><strong>${mensagem.nome}:</strong> ${mensagem.comentario}</p>`;
-            mensagensDiv.appendChild(div);
+        const mensagem = childSnapshot.val();
+        const div = document.createElement('div');
+        div.innerHTML = `<p><strong>${mensagem.nome}:</strong> ${mensagem.comentario}</p>`;
+        mensagensDiv.appendChild(div);
         });
-    });
-}
+        });
+        }
 
         // Mostrar a aba de administração se o PIN for correto
-    const adminPIN = "1234"; // Defina o PIN de administrador
-    document.getElementById('pin').addEventListener('input', function() {
+        const adminPIN = "1234"; // Defina o PIN de administrador
+        document.getElementById('pin').addEventListener('input', function() {
         const pin = document.getElementById('pin').value.trim();
         if (pin === adminPIN) {
-            document.getElementById('admin-tab').style.display = "block";
-            alert("ADM MODE: ON");
-            carregarMensagens();
-            carregarPresentes();
-            carregarConfirmacoes();
-    }
-});      
-      // Função para abrir as abas
+        document.getElementById('admin-tab').style.display = "block";
+        alert("ADM MODE: ON");
+        carregarMensagens();
+        carregarPresentes();
+        carregarConfirmacoes();
+        }
+        });
+        // Função para abrir as abas
         function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
         }
 
         // Contagem regressiva
         function countdown() {
-            const countDownDate = new Date("August 19, 2026 20:00:00").getTime();
-            const countdownElement = document.getElementById("countdown");
+        const countDownDate = new Date("August 19, 2026 20:00:00").getTime();
+        const countdownElement = document.getElementById("countdown");
 
-            const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
+        const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                countdownElement.innerHTML = days + "d " + hours + "h " +
-                    minutes + "m " + seconds + "s ";
+        countdownElement.innerHTML = days + "d " + hours + "h " +
+        minutes + "m " + seconds + "s ";
 
-                if (distance < 0) {
-                    clearInterval(x);
-                    countdownElement.innerHTML = "E ELES VIVEM FELIZ!";
-                }
-            }, 1000);
+        if (distance < 0) {
+        clearInterval(x);
+        countdownElement.innerHTML = "E ELES VIVEM FELIZ!";
+        }
+        }, 1000);
         }
 
         countdown();
 
 
-// Inicializa o Firebase Storage
-const storage = getStorage();
+        // Inicializa o Firebase Storage
+        const storage = getStorage();
 
-// Referência ao diretório onde as fotos estão armazenadas no Firebase Storage
-const fotosFolderRef = storageRef(storage, 'fotos/');
+        // Referência ao diretório onde as fotos estão armazenadas no Firebase Storage
+        const fotosFolderRef = storageRef(storage, 'fotos/');
 
-// Função para carregar as fotos do Firebase Storage e exibi-las na galeria
-function carregarFotosDoStorage() {
-    const galeria = document.getElementById('galeria');
-    galeria.innerHTML = ''; // Limpa a galeria antes de carregar as fotos
+        // Função para carregar as fotos do Firebase Storage e exibi-las na galeria
+        function carregarFotosDoStorage() {
+        const galeria = document.getElementById('galeria');
+        galeria.innerHTML = ''; // Limpa a galeria antes de carregar as fotos
 
-    // Lista todos os itens no diretório 'fotos/'
-    listAll(fotosFolderRef)
+        // Lista todos os itens no diretório 'fotos/'
+        listAll(fotosFolderRef)
         .then((result) => {
-            result.items.forEach((itemRef) => {
-                // Para cada item (foto), obter o URL de download
-                getDownloadURL(itemRef).then((downloadURL) => {
-                    const img = document.createElement('img');
-                    img.src = downloadURL;
-                    img.alt = itemRef.name;
-                    img.style.width = '200px'; // Define o tamanho da imagem, ajuste conforme necessário
-                    img.style.margin = '10px'; // Adiciona um espaçamento entre as imagens
-                    galeria.appendChild(img);
-                }).catch((error) => {
-                    console.error('Erro ao obter URL da foto:', error);
-                });
-            });
+        result.items.forEach((itemRef) => {
+        // Para cada item (foto), obter o URL de download
+        getDownloadURL(itemRef).then((downloadURL) => {
+        const img = document.createElement('img');
+        img.src = downloadURL;
+        img.alt = itemRef.name;
+        img.style.width = '200px'; // Define o tamanho da imagem, ajuste conforme necessário
+        img.style.margin = '10px'; // Adiciona um espaçamento entre as imagens
+        galeria.appendChild(img);
         }).catch((error) => {
-            console.error('Erro ao listar fotos no Firebase Storage:', error);
-            galeria.innerHTML = 'Erro ao carregar a galeria de fotos.';
+        console.error('Erro ao obter URL da foto:', error);
         });
-}
+        });
+        }).catch((error) => {
+        console.error('Erro ao listar fotos no Firebase Storage:', error);
+        galeria.innerHTML = 'Erro ao carregar a galeria de fotos.';
+        });
+        }
 
-// Chama a função para carregar as fotos ao carregar a página
-window.onload = carregarFotosDoStorage;
+        // Chama a função para carregar as fotos ao carregar a página
+        window.onload = carregarFotosDoStorage;
 
     </script>
 </body>
