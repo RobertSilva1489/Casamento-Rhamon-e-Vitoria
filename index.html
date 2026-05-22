@@ -76,13 +76,15 @@
     <!-- Seção: Mensagens para os Noivos -->
     <div id="mensagens" class="tabcontent">
         <h2>Deixe uma mensagem para os noivos</h2>
-        <form id="mensagem-form">
-            <input type="text" id="nome-mensagem" placeholder="Seu Nome" required>
-            <textarea id="comentario" placeholder="Escreva sua mensagem..." required></textarea>
-            <button type="submit">Enviar Mensagem</button>
-        </form>
-        <div id="mensagem-sucesso"></div> <!-- Div para exibir mensagem de sucesso -->
-        <div id="mensagens-enviadas"></div>
+
+        <div class="form-container">
+            <div class="form-wrapper">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeO2Kx4xEW44Y41TB2fPhm4uMWkX4_DNVp0tALRBDfT_u20cA/viewform?embedded=true"
+                        frameborder="0">
+                    Carregando...
+                </iframe>
+            </div>
+        </div>
     </div>
 
     <!-- Seção: Administração (Somente admin) -->
@@ -114,30 +116,11 @@
     <script src="scripts.js"></script>
 
     <script>
-        // Armazenamento local simples para não depender do Firebase.
-        // Estruturas salvas em localStorage sob as chaves: 'confirmacoes' e 'mensagens'.
-
-        // Helpers localStorage
-        function getFromStorage(key) {
-            try {
-                const raw = localStorage.getItem(key);
-                return raw ? JSON.parse(raw) : [];
-            } catch (e) {
-                console.error('Erro ao ler localStorage', e);
-                return [];
-            }
-        }
-
-        function saveToStorage(key, array) {
-            try {
-                localStorage.setItem(key, JSON.stringify(array));
-            } catch (e) {
-                console.error('Erro ao salvar no localStorage', e);
-            }
-        }
-
-        // Enviar confirmação de presença (salva em localStorage)
-        document.getElementById('confirmacao-form').addEventListener('submit', function(e) {
+(function() {
+    // Validação do formulário de confirmação (sem persistência)
+    const confirmacaoForm = document.getElementById('confirmacao-form');
+    if (confirmacaoForm) {
+        confirmacaoForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const nome = document.getElementById('nome').value.trim();
             const pin = document.getElementById('pin').value.trim();
@@ -145,142 +128,74 @@
             const criancas = document.getElementById('criancas').value;
 
             if (nome === '' || pin === '') {
-                alert("Por favor, preencha todos os campos.");
+                alert('Por favor, preencha todos os campos.');
                 return;
             }
 
-            const confirmacoes = getFromStorage('confirmacoes');
-            confirmacoes.push({
-                nome: nome,
-                pin: pin,
-                adultos: Number(adultos) || 0,
-                criancas: Number(criancas) || 0,
-                criadoEm: new Date().toISOString()
-            });
-            saveToStorage('confirmacoes', confirmacoes);
-
-            document.getElementById('confirmacao-sucesso').innerHTML = "<p>Confirmação enviada com sucesso!</p>";
-            document.getElementById('confirmacao-form').reset();
+            // Persistência ainda não implementada — apenas feedback visual
+            document.getElementById('confirmacao-sucesso').innerHTML = '<p>Confirmação recebida (sem persistência ainda).</p>';
+            confirmacaoForm.reset();
         });
+    }
 
-        // Enviar mensagem (salva em localStorage)
-        document.getElementById('mensagem-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nomeMensagem = document.getElementById('nome-mensagem').value.trim();
-            const comentario = document.getElementById('comentario').value.trim();
-
-            if (nomeMensagem === '' || comentario === '') {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
-
-            const mensagens = getFromStorage('mensagens');
-            mensagens.push({
-                nome: nomeMensagem,
-                comentario: comentario,
-                criadoEm: new Date().toISOString()
-            });
-            saveToStorage('mensagens', mensagens);
-
-            document.getElementById('mensagem-sucesso').innerHTML = "<p>Mensagem enviada com sucesso!</p>";
-            document.getElementById('mensagem-form').reset();
-        });
-
-        // Carregar confirmações na aba de administração
-        function carregarConfirmacoes() {
-            const confirmacoes = getFromStorage('confirmacoes');
-            const confirmacoesDiv = document.getElementById('admin-presencas');
-            confirmacoesDiv.innerHTML = '';
-            let totalAdultos = 0;
-            let totalCriancas = 0;
-
-            confirmacoes.forEach(item => {
-                const div = document.createElement('div');
-                totalAdultos += Number(item.adultos) || 0;
-                totalCriancas += Number(item.criancas) || 0;
-                div.innerHTML = `<p>Nome: ${escapeHtml(item.nome)}, Adultos: ${escapeHtml(String(item.adultos))}, Crianças: ${escapeHtml(String(item.criancas))}</p>`;
-                confirmacoesDiv.appendChild(div);
-            });
-
-            document.getElementById('total-adultos').innerText = `Total de adultos: ${totalAdultos}`;
-            document.getElementById('total-criancas').innerText = `Total de crianças: ${totalCriancas}`;
-        }
-
-        // Carregar mensagens na aba de administração
-        function carregarMensagens() {
-            const mensagens = getFromStorage('mensagens');
-            const mensagensDiv = document.getElementById('admin-mensagens');
-            mensagensDiv.innerHTML = '';
-            mensagens.forEach(item => {
-                const div = document.createElement('div');
-                div.innerHTML = `<p><strong>${escapeHtml(item.nome)}:</strong> ${escapeHtml(item.comentario)}</p>`;
-                mensagensDiv.appendChild(div);
-            });
-        }
-
-        // Escapa HTML simples para evitar injeção nas exibições
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // Mostrar a aba de administração se o PIN for correto
-        const adminPIN = "063860"; // Defina o PIN de administrador
-        document.getElementById('pin').addEventListener('input', function() {
-            const pin = document.getElementById('pin').value.trim();
-            if (pin === adminPIN) {
-                document.getElementById('admin-tab').style.display = "block";
-                alert("ADM MODE: ON");
-                carregarMensagens();
-                carregarConfirmacoes();
+    // Mostrar aba de administração se o PIN for correto (não carrega dados)
+    const adminPIN = "063860";
+    const pinInput = document.getElementById('pin');
+    if (pinInput) {
+        pinInput.addEventListener('input', function() {
+            if (pinInput.value.trim() === adminPIN) {
+                const adminTab = document.getElementById('admin-tab');
+                if (adminTab) adminTab.style.display = 'block';
+                alert('ADM MODE: ON');
             }
         });
+    }
 
-        // Função para abrir as abas
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+    // Função para abrir as abas
+    window.openTab = function(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName('tabcontent');
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = 'none';
         }
+        tablinks = document.getElementsByClassName('tablinks');
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(' active', '');
+        }
+        const target = document.getElementById(tabName);
+        if (target) target.style.display = 'block';
+        if (evt && evt.currentTarget) evt.currentTarget.className += ' active';
+    };
 
-        // Contagem regressiva
-        function countdown() {
-            const countDownDate = new Date("August 19, 2026 20:00:00").getTime();
-            const countdownElement = document.getElementById("countdown");
+    // Contagem regressiva
+    function countdown() {
+        const countDownDate = new Date('August 19, 2026 20:00:00').getTime();
+        const countdownElement = document.getElementById('countdown');
 
-            const x = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                countdownElement.innerHTML = days + "d " + hours + "h " +
-                    minutes + "m " + seconds + "s ";
-
-                if (distance < 0) {
+            if (countdownElement) {
+                if (distance >= 0) {
+                    countdownElement.innerHTML = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                } else {
                     clearInterval(x);
-                    countdownElement.innerHTML = "E ELES VIVEM FELIZ!";
+                    countdownElement.innerHTML = 'E ELES VIVEM FELIZ!';
                 }
-            }, 1000);
-        }
+            } else {
+                clearInterval(x);
+            }
+        }, 1000);
+    }
 
-        // Inicia a contagem regressiva ao carregar o script
-        countdown();
-    </script>
+    countdown();
+})();
+</script>
 </body>
 </html>

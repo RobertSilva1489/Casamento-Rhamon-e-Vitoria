@@ -1,4 +1,3 @@
-
 // Função para abrir as abas
 function openTab(evt, tabName) {
     let i, tabcontent, tablinks;
