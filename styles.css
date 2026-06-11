@@ -120,11 +120,11 @@ footer {
 }
 
 .tab button:hover {
-    background-color: #4d8b6b;
+    background-color: #54582f;
 }
 
 .tab button.active {
-    background-color: #4d8b6b;
+    background-color: #54582f;
 }
 
 .tabcontent {
