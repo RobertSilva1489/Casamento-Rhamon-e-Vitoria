@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Roboto Mono', monospace;
-    background-color: #f9f9f9;
+    background-color: #587956;
     color: #333;
     text-align: center; /* Centralizar textos */
 }
@@ -103,7 +103,7 @@ footer {
 .tab {
     display: flex;
     justify-content: center; /* Centraliza as abas horizontalmente */
-    background-color: #88c999;
+    background-color: #272b00;
     margin-bottom: 20px;
 }
 
