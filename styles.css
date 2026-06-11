@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Roboto Mono', monospace;
-    background-color: #272b00;
+    background-color: #f9f9f9;
     color: #333;
     text-align: center; /* Centralizar textos */
 }
@@ -80,7 +80,7 @@ input, textarea {
 
 button {
     padding: 10px 20px;
-    background-color: #4d8b6b;
+    background-color: #272B00;
     color: white;
     border: none;
     border-radius: 5px;
