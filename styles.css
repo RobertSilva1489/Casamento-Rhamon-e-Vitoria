@@ -126,7 +126,7 @@ footer {
 .tab {
     display: flex;
     justify-content: center; /* Centraliza as abas horizontalmente */
-    background-color: #272b00;
+    background-color: #86895d;
     margin-bottom: 20px;
 }
 
@@ -147,7 +147,7 @@ footer {
 }
 
 .tab button.active {
-    background-color: #54582f;
+    background-color: #6c713b;
 }
 
 .tabcontent {
