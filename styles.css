@@ -242,6 +242,14 @@ footer {
         margin: 10px;
         padding: 15px;
     }
+
+    /* Ajuste para evitar corte em celulares */
+  header {
+    background-position: center top;
+    background-size: 100% auto; /* ocupa 100% da largura, reduz cortes horizontais */
+    height: auto;               /* deixa o conteúdo definir a altura */
+    min-height: 40vh;           /* altura mínima ajustável */
+  }
 }
 
 /* Form containers específicos por aba */
