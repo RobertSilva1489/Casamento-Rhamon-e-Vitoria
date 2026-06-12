@@ -1,3 +1,26 @@
+/* Import Pompiere from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pompiere&display=swap');
+
+/* Angela White (local): coloque os arquivos em /fonts/ e ajuste os caminhos abaixo */
+@font-face {
+    font-family: 'Angela White';
+    src: url('Angella White Personal Use Only.ttf') format('ttf')
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Fontes do projeto --- */
+body {
+    font-family: 'Pompiere', serif;
+}
+
+/* Cabeçalhos e botões usam Angela White */
+h1, h2, h3, h4, h5, h6,
+button, .tab button, .admin-section h3 {
+    font-family: 'Angela White', 'Pompiere', serif;
+}
+
 /* Estilo padrão */
 * {
     margin: 0;
@@ -12,7 +35,7 @@ body {
     text-align: center; /* Centralizar textos */
 }
 header {
-    background-image: url('IMG-20220621-WA0047.jpeg'); /* Substitua pelo caminho correto da imagem */
+    background-image: url('ReV.png'); /* Substitua pelo caminho correto da imagem */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -26,7 +49,7 @@ header {
 }
 
 .header-content {
-    background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para destacar o texto */
+    background: rgba(0, 0, 0, 0.85); /* Fundo semi-transparente para destacar o texto */
     padding: 20px;
     border-radius: 10px;
 }
